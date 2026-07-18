@@ -352,9 +352,12 @@
 .pillar-card .wc-src { font-size: 10.5px; color: rgba(255, 255, 255, 0.42); margin-top: 12px; }
 
 .mars-band {
-  margin-top: 28px; padding: 28px 32px;
+  margin-top: 28px; padding: 52px 40px;
   border-left: 4px solid var(--amber);
-  background: rgba(0, 0, 0, 0.22); border-radius: 0 var(--radius) var(--radius) 0;
+  background:
+    linear-gradient(90deg, rgba(6, 12, 9, 0.9) 0%, rgba(6, 12, 9, 0.72) 52%, rgba(6, 12, 9, 0.28) 100%),
+    url("images/optimized/lunar-farm-2040.webp") center 40% / cover no-repeat;
+  border-radius: 0 var(--radius) var(--radius) 0;
 }
 .mars-band .mb-quote { font-size: 20px; font-weight: 800; line-height: 1.7; color: #ffc46b; margin-bottom: 10px; }
 .mars-band p { font-size: 13.5px; color: rgba(255, 255, 255, 0.78); line-height: 1.9; max-width: 760px; }
