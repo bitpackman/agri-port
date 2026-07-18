@@ -273,6 +273,18 @@
   border: 1px solid var(--green-100); border-radius: 999px; padding: 3px 12px;
 }
 
+/* ---------- Mission band ---------- */
+.mission-band {
+  background:
+    radial-gradient(800px 400px at 85% 10%, rgba(232, 161, 61, 0.14), transparent 60%),
+    linear-gradient(160deg, #0d2a1f, #174d38);
+  color: #fff; padding: 72px 0; text-align: center;
+}
+.mission-band .kicker { background: rgba(232, 161, 61, 0.14); border-color: rgba(232, 161, 61, 0.4); color: #ffd694; }
+.mission-band h2 { font-size: clamp(28px, 3.4vw, 44px); font-weight: 800; margin: 6px 0 18px; letter-spacing: 0.01em; }
+.mission-band p { max-width: 720px; margin: 0 auto; font-size: 14.5px; line-height: 2.1; color: rgba(255, 255, 255, 0.8); }
+.mission-band p strong { color: #ffc46b; }
+
 /* ---------- Physical AI architecture ---------- */
 .layer-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
