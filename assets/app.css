@@ -288,7 +288,9 @@
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;
 }
 @media (max-width: 800px) { .planet-grid { grid-template-columns: 1fr; } }
-.planet-card { padding: 20px; }
+.planet-card { padding: 14px 14px 18px; }
+.planet-card .market-tag, .planet-card .market-name, .planet-card .market-desc { margin-left: 6px; margin-right: 6px; }
+.planet-card .port-photo { margin-bottom: 12px; }
 .planet-card .market-name { margin: 8px 0 6px; font-weight: 700; font-size: 15px; }
 .planet-card .market-desc { font-size: 12.5px; color: var(--ink-2); line-height: 1.8; }
 

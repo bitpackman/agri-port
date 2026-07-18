@@ -59,6 +59,18 @@
   padding: 5px 13px; border-radius: 999px;
 }
 
+/* duo image row */
+.duo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+@media (max-width: 800px) { .duo-grid { grid-template-columns: 1fr; } }
+.duo-item { position: relative; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-lg); }
+.duo-item img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; }
+.duo-item figcaption {
+  position: absolute; left: 12px; bottom: 12px; right: 12px;
+  font-size: 11px; font-weight: 600; color: #fff;
+  background: rgba(10, 24, 18, 0.72); backdrop-filter: blur(4px);
+  padding: 5px 12px; border-radius: 999px; width: fit-content;
+}
+
 /* step card photos */
 .step-photo {
   width: 100%; aspect-ratio: 16 / 10; object-fit: cover;
