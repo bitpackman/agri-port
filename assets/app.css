@@ -275,6 +275,25 @@
 .market-card .btn { margin-top: 6px; }
 .market-card .btn[disabled] { background: var(--green-100); color: var(--green-700); cursor: default; }
 
+/* ---------- Planetary ---------- */
+.preview-pill {
+  display: inline-flex; align-items: center;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+  color: #2456a0; background: #e7f0fd; border: 1px solid #c4dcf7;
+  padding: 3px 10px; border-radius: 999px;
+}
+.planet-map { background: #0d1a14; overflow: hidden; padding: 8px 0; }
+.planet-map svg { display: block; width: 100%; height: auto; }
+.planet-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;
+}
+@media (max-width: 800px) { .planet-grid { grid-template-columns: 1fr; } }
+.planet-card { padding: 20px; }
+.planet-card .market-name { margin: 8px 0 6px; font-weight: 700; font-size: 15px; }
+.planet-card .market-desc { font-size: 12.5px; color: var(--ink-2); line-height: 1.8; }
+
+.rt-three { grid-template-columns: 1fr 1fr 1fr; }
+
 /* ---------- Toast ---------- */
 .toast {
   position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(20px);

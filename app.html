@@ -25,6 +25,7 @@
       <a href="#live">ライブ観察</a>
       <a href="#returns">リターン</a>
       <a href="#market">募集中ポート</a>
+      <a href="#planet">🌍 Planetary</a>
     </nav>
     <div class="user-chip">
       <span class="clock" id="clock">--:--</span>
@@ -206,14 +207,15 @@
   <section id="returns" class="app-section">
     <div class="app-section-head">
       <h2>リターンセンター</h2>
-      <p class="app-lede">リターンは<strong>野菜</strong>でも<strong>お金</strong>でも。ポートごとに、いつでも切り替えられます。</p>
+      <p class="app-lede">リターンは<strong>野菜</strong>でも、<strong>お金</strong>でも、<strong>地球</strong>でも。ポートごとに、いつでも切り替えられます。</p>
     </div>
 
     <div class="returns-layout">
       <div class="return-sim card">
-        <div class="return-toggle" role="tablist" aria-label="リターン方式の選択">
-          <button class="rt-btn on" id="rtVeg" role="tab" aria-selected="true">🥬 野菜で受け取る</button>
-          <button class="rt-btn" id="rtCash" role="tab" aria-selected="false">💴 お金で受け取る</button>
+        <div class="return-toggle rt-three" role="tablist" aria-label="リターン方式の選択">
+          <button class="rt-btn on" id="rtVeg" role="tab" aria-selected="true">🥬 野菜</button>
+          <button class="rt-btn" id="rtCash" role="tab" aria-selected="false">💴 お金</button>
+          <button class="rt-btn" id="rtEarth" role="tab" aria-selected="false">🌍 地球</button>
         </div>
 
         <div class="return-panel" id="panelVeg">
@@ -236,6 +238,17 @@
             <li>分配金の一部を「次の荒廃農地再生」に再投資するオプションあり</li>
           </ul>
           <div class="rp-note">※ 金銭リターン型は金商法上の集団投資スキームに該当 — 第二種金融商品取引業者との提携により提供する設計です。</div>
+        </div>
+
+        <div class="return-panel hidden" id="panelEarth">
+          <div class="rp-headline">あなたの持分の再生農地が貯留する炭素(デモ試算)</div>
+          <div class="rp-value">1ポート(2ha)あたり <strong>年2〜6 t-CO2e</strong> <span class="rp-small">(土壌+バイオマス)</span></div>
+          <ul class="rp-points">
+            <li>荒廃農地の再生=土壌炭素の回復。ロボットの無農薬除草・不耕起管理が貯留を最大化</li>
+            <li><strong>艦隊の毎日の観察(NDVI・作業ログ・衛星)がそのまま検証データ(dMRV)になる</strong></li>
+            <li>リターンは「クレジット償却証明(あなたのCO2排出の相殺)」or 売却分の分配</li>
+          </ul>
+          <div class="rp-note">※ Track C(構想): ボランタリーカーボン市場の検証プロトコル準拠が前提。従来のMRVは$50〜200/haかかり信頼性が最大の課題 — 常時観察する艦隊はこれを構造的に解決します。</div>
         </div>
       </div>
 
@@ -298,6 +311,54 @@
     <div class="market-grid" id="marketGrid"><!-- JS renders --></div>
   </section>
 
+  <!-- ================= Planetary ================= -->
+  <section id="planet" class="app-section">
+    <div class="app-section-head">
+      <h2>🌍 プラネタリー・ネットワーク <span class="preview-pill">2036– PLANETARY構想</span></h2>
+      <p class="app-lede">ポートは日本から、地球へ。あなたのポートフォリオに<strong>「地球」を組み込む</strong>。</p>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-tile">
+        <div class="stat-label">ネットワーク累計の再生農地(デモ)</div>
+        <div class="stat-value">128<small>ha</small></div>
+        <div class="stat-note">世界の耕作放棄地は約1億ha — 再生はまだ0.0001%</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">土壌炭素の貯留量(デモ試算)</div>
+        <div class="stat-value">412<small>t-CO2e</small></div>
+        <div class="stat-note">艦隊の観察データで検証(dMRV)・クレジット化予定</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">地球を観察している参加者</div>
+        <div class="stat-value">8,214<small>人</small></div>
+        <div class="stat-note">観察者の目が、クレジットの信頼性になる</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">稼働中のフィジカルAI</div>
+        <div class="stat-value">47<small>機</small></div>
+        <div class="stat-note">全機体の走行・観察データが共有学習へ</div>
+      </div>
+    </div>
+
+    <div class="planet-map card">
+      <svg id="worldMap" viewBox="0 0 960 470" role="img" aria-label="Agri Portの世界ポート網マップ(デモ) — 日本3ポートが稼働中、ケニアとスペインは構想区域"></svg>
+    </div>
+
+    <div class="planet-grid">
+      <div class="card planet-card">
+        <span class="market-tag renew">送金ポート構想</span>
+        <div class="market-name">☕ ナイロビ高原・コーヒーポート</div>
+        <p class="market-desc">世界の国際送金は年<strong>6,850億ドル</strong>、農村部ではその約半分が農業関連に使われる(IFAD)。ディアスポラが故郷の村のポートに送金し、アプリで故郷の畑をライブ観察 — 送金が「仕送り」から「故郷への投資」に変わる。</p>
+      </div>
+      <div class="card planet-card">
+        <span class="market-tag">気候分散ポート構想</span>
+        <div class="market-name">🫒 アンダルシア・オリーブポート</div>
+        <p class="market-desc">温暖化2°Cでアフリカのトウモロコシ収量は最大▲33%(IPCC)。ポートを気候帯をまたいで分散保有すれば、あなたの食料は<strong>地球規模のインデックスファンド</strong>になる — 一地域の不作をネットワークが吸収する。</p>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="site-footer">
@@ -320,5 +381,6 @@
 
 <script src="assets/app.js"></script>
 <script src="assets/scenes.js"></script>
+<script src="assets/planetary.js"></script>
 </body>
 </html>

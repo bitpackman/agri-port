@@ -24,9 +24,10 @@
     <nav class="site-nav">
       <a href="#problem">課題</a>
       <a href="#solution">ソリューション</a>
+      <a href="#stack">フィジカルAI</a>
       <a href="#chain">売り方</a>
       <a href="#scheme">ビジネスモデル</a>
-      <a href="#whynow">Why Now</a>
+      <a href="#planetary">🌍 Planetary</a>
       <a href="#roadmap">ロードマップ</a>
     </nav>
     <a class="header-cta" href="app.html">アプリDEMOを見る</a>
@@ -217,37 +218,95 @@
       <figcaption>🚢 ポートに「入港」したフィジカルAI艦隊 — 2035年イメージ</figcaption>
     </figure>
 
-    <div class="stack-band">
-      <h3>🤖 フィジカルAIスタック — 発明を待たない。実在技術で構成する。</h3>
-      <div class="sb-sub">Agri Portはロボットメーカーではなく、商用化済みのフィジカルAIを束ねて運用する「艦隊オペレーター」</div>
-      <div class="stack-grid">
-        <div class="stack-item">
-          <span class="sk-ico">🚜</span>
-          <div><strong>自律トラクタ</strong><span>耕うん・整地・播種を無人化</span><span class="sk-ref">クボタ・ヤンマーが商用化済(約1,200〜1,700万円)→小口資本で共同保有</span></div>
-        </div>
-        <div class="stack-item">
-          <span class="sk-ico">🦾</span>
-          <div><strong>収穫ロボット(RaaS)</strong><span>アスパラ・ピーマン等で稼働中</span><span class="sk-ref">inaho: 収穫量×単価×15%の従量課金 / AGRIST: 出荷額10%のレベニューシェア</span></div>
-        </div>
-        <div class="stack-item">
-          <span class="sk-ico">🚁</span>
-          <div><strong>ドローン防除・センシング</strong><span>散布面積は5年で6.5万ha→100万haに急拡大</span><span class="sk-ref">農水省「農業分野におけるドローンの活用状況」</span></div>
-        </div>
-        <div class="stack-item">
-          <span class="sk-ico">💧</span>
-          <div><strong>AI潅水・環境制御</strong><span>土壌センサー連動の自動潅水施肥</span><span class="sk-ref">ゼロアグリ: 46都道府県470台導入、トマト収量1.5倍の事例</span></div>
-        </div>
-        <div class="stack-item">
-          <span class="sk-ico">🦿</span>
-          <div><strong>ヒューマノイド(選果・出荷)</strong><span>器用さが要る収穫後工程 — 選果・箱詰め・多品目仕分け・パレタイズ</span><span class="sk-ref">Figure 03はBMW工場の部品仕分けに実稼働 / Agility DigitはGXO物流で10万トート搬送(RaaS契約)</span></div>
-        </div>
-        <div class="stack-item">
-          <span class="sk-ico">🧠</span>
-          <div><strong>AIアグロノミスト(頭脳)</strong><span>生育判断・作業計画・全機体のオーケストレーション</span><span class="sk-ref">農場OS×ヒューマノイド連携の先行例: Agroz OS × UBTECH Walker S(垂直農場)</span></div>
-        </div>
+  </div>
+</section>
+
+<!-- ================= PHYSICAL AI ARCHITECTURE ================= -->
+<section id="stack" class="section">
+  <div class="wrap">
+    <span class="kicker">PHYSICAL AI ARCHITECTURE</span>
+    <h2>どんなフィジカルAIが必要か — <br>6レイヤー × 4ポートタイプで整理する</h2>
+    <p class="lede">
+      必要なのは1種類の万能ロボットではなく、<strong>「足・手・目・インフラ・頭脳・守り」の6レイヤー</strong>の艦隊編成。
+      ポートの地形と作物によって構成を組み替えます。すべて実在技術です。
+    </p>
+
+    <div class="layer-grid">
+      <div class="card layer-card">
+        <div class="lc-num">LAYER 1 — 足(走行・動力)</div>
+        <h3>🚜 面を走る</h3>
+        <p>自律トラクタ(クボタ・ヤンマー 商用化済)に加え、<strong>電動小型機</strong>が価格の壁を破壊中 — Monarch MK-V 約$75k(電動×自律)、オープンソースのfarm-ng Amigaは<strong>$13k</strong>。不整地は月面探査技術由来の輝翠TECH「Adam」(GPS不要SLAM)が走る。</p>
+        <div class="wc-src">出典: Monarch Tractor / farm-ng / 東北大学スタートアップ事業化センター</div>
       </div>
-      <div class="stack-rule">役割分担の原則 — <strong>「面」の作業は専用機、「手」の作業はヒューマノイド。</strong>畑を走るのはトラクタとドローンが最速。だが野菜・果樹の労働時間の最大の塊は畑の外の<strong>選果・調製・出荷</strong>(ねぎ: 収穫+調製で労働時間の49% / いちご: 調製だけで35%)にあり、多品目×非定型のこの工程こそヒューマノイドの主戦場になる。<span class="sk-ref" style="display:inline">出典: 農水省 品目別経営統計 / 栃木県農業試験場</span></div>
+      <div class="card layer-card">
+        <div class="lc-num">LAYER 2 — 手(精密作業)</div>
+        <h3>🦾 一株単位で作業する</h3>
+        <p>収穫RaaS(inaho・AGRIST)、ヒューマノイド選果に加え、<strong>レーザー除草</strong>が主役級 — Carbon Robotics G2はNVIDIA GPU 24基で<strong>最大60万本/時</strong>の雑草を焼灼、除草剤を大幅削減し<strong>投資回収1〜3年</strong>(公称)。スポット散布のSolixは除草剤〜98%減。</p>
+        <div class="wc-src">出典: Carbon Robotics / Solinftec / John Deere(See &amp; Spray 500万エーカー・薬剤約50%減)</div>
+      </div>
+      <div class="card layer-card">
+        <div class="lc-num">LAYER 3 — 目(センシング)</div>
+        <h3>👁 3層で観る</h3>
+        <p><strong>衛星(広域)→ドローン(圃場)→機体カメラ(mm級)</strong>の3層構造。Sentinel-2は無料・10m解像度、Planetは3m・毎日・<strong>約$2/ha/年</strong>。荒廃農地の発掘は衛星AI「ACTABA」(サグリ、判定精度9割超)がポート候補地を全国からスキャンする。</p>
+        <div class="wc-src">出典: Copernicus / Planet Labs / サグリ</div>
+      </div>
+      <div class="card layer-card">
+        <div class="lc-num">LAYER 4 — インフラ(定置)</div>
+        <h3>🔋 電源と通信を自立させる</h3>
+        <p>LPWA水位センサーは<strong>1.98万円・通信費月額0円</strong>まで下がった。ソーラー自立ロボ(Aigen $50k)は充電ドックすら不要。圏外の中山間地は<strong>Starlink</strong>で解決 — John Deere×SpaceXが既に自律農機の通信基盤として実装済み。</p>
+        <div class="wc-src">出典: ファーモ / Aigen / John Deere公式(JDLink Boost)</div>
+      </div>
+      <div class="card layer-card">
+        <div class="lc-num">LAYER 5 — 頭脳(基盤モデル)</div>
+        <h3>🧠 走るほど、全艦隊が賢くなる</h3>
+        <p>ロボット基盤モデル(NVIDIA Isaac GR00T、Apache 2.0で商用可)と、Carbon Roboticsの<strong>「Large Plant Model」— 1.5億本の植物データで学習し、1機の経験が艦隊全体に共有される</strong>フリートラーニングが実在。Agri Portのポート網は、この学習ループに毎日データを供給する<strong>「データの港」</strong>でもある。</p>
+        <div class="wc-src">出典: NVIDIA / Carbon Robotics(2026年2月発表)</div>
+      </div>
+      <div class="card layer-card">
+        <div class="lc-num">LAYER 6 — 守り(中山間の現実解)</div>
+        <h3>🛡 獣害と草から農地を守る</h3>
+        <p>中山間ポートの敵は獣と草。オオカミ型ロボ「モンスターウルフ」(60万円台〜)は<strong>半径150mに野生動物が接近しなくなった実績</strong>。自律草刈り(和同KRONOS・Automower 15〜60万円)と組み合わせ、<strong>15〜100万円級の最小資本</strong>で荒廃地の再生を始められる。</p>
+        <div class="wc-src">出典: 太田精器(wolfkamuy) / 和同産業 / Husqvarna</div>
+      </div>
     </div>
+
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead>
+          <tr><th>レイヤー</th><th>🌾 水田ポート</th><th>🥬 露地野菜ポート</th><th>🍓 施設園芸ポート</th><th>⛰ 中山間・再生ポート</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>足</th>
+            <td>自律トラクタ・田植機<small>クボタ / ヤンマー</small></td>
+            <td>電動小型トラクタ<small>Monarch $75k / Amiga $13k</small></td>
+            <td>レール・台車(定置中心)</td>
+            <td>不整地SLAMロボ<small>輝翠TECH Adam</small></td></tr>
+          <tr><th>手</th>
+            <td>ドローン防除・自動水管理</td>
+            <td>レーザー除草・スポット散布<small>ROI 1〜3年(公称)</small></td>
+            <td>収穫RaaS+ヒューマノイド選果<small>inaho 15% / AGRIST 10%</small></td>
+            <td>自動草刈り・運搬・獣害ロボ</td></tr>
+          <tr><th>目</th>
+            <td>衛星NDVI+水位センサー<small>1.98万円・月額0円</small></td>
+            <td>衛星+機体カメラ<small>基盤モデルが作物/雑草を識別</small></td>
+            <td>温室センサー網<small>温湿度・CO2・画像</small></td>
+            <td>衛星で荒廃地検出<small>ACTABA 精度9割超</small></td></tr>
+          <tr><th>インフラ</th>
+            <td>LPWA(年数千円)</td>
+            <td>LTE+ソーラー自立ロボ</td>
+            <td>商用電源(最も容易)</td>
+            <td>Starlink+ソーラードック</td></tr>
+          <tr><th>経済性</th>
+            <td>センサー数万円で即導入</td>
+            <td>除草のROIが最も実証済み</td>
+            <td>既存RaaSをそのまま転用可</td>
+            <td>15〜100万円級・最小資本で開始</td></tr>
+          <tr class="m-foot"><th>頭脳</th>
+            <td colspan="4">全ポート共通: ロボット基盤モデル+フリートラーニング — 1機の学習が全艦隊の知能になり、ポート網は「データの港」として第2の収益源を生む</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="matrix-note">※ 価格・性能は各社公表値および報道ベース(Carbon Roboticsは公式価格非公開のため市場集計値)。役割分担の原則: <strong>「面」の作業は専用機、「手」の作業はヒューマノイド</strong> — 野菜・果樹の労働時間の最大の塊は収穫後の選果・調製(ねぎ49%・いちご35%、農水省統計)にあり、そこが人型の主戦場。</div>
   </div>
 </section>
 
@@ -468,11 +527,88 @@
   </div>
 </section>
 
+<!-- ================= PLANETARY ================= -->
+<section id="planetary" class="section planetary">
+  <div class="wrap">
+    <span class="kicker">PLANETARY — 地球人として解く</span>
+    <h2>この課題は、日本のものではない。<br>地球のものだ。</h2>
+    <p class="lede">
+      農業者の高齢化は世界共通 — そして日本は、その最先端を歩いている。
+      <strong>日本で解けた農業OSは、そのまま地球の標準になる。</strong>
+    </p>
+
+    <div class="stat-row">
+      <div class="stat-tile">
+        <div class="stat-label">世界の飢餓人口(2024年)</div>
+        <div class="stat-value">6.73<small>億人</small></div>
+        <div class="stat-delta">中程度以上の食料不安は約23億人</div>
+        <div class="stat-note">FAO SOFI 2025</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">2050年に必要な食料の増産(対2012年)</div>
+        <div class="stat-value">+50<small>%</small></div>
+        <div class="stat-delta">南アジア・サハラ以南は倍増(+112%)が必要</div>
+        <div class="stat-note">FAO「The Future of Food and Agriculture」</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">劣化した地球の陸地(最大)</div>
+        <div class="stat-value">40<small>%</small></div>
+        <div class="stat-delta">毎年約1億ha(エジプト1国分)の健全な土地を喪失</div>
+        <div class="stat-note">UNCCD Global Land Outlook 2(2022)</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">世界の耕作放棄地(衛星推計)</div>
+        <div class="stat-value">約1<small>億ha</small></div>
+        <div class="stat-delta">日本の荒廃農地25.7万haは、その縮図</div>
+        <div class="stat-note">Zheng et al., Nature Communications(2023)</div>
+      </div>
+    </div>
+
+    <div class="aging-band">
+      <h3>🌏 世界は、日本の後ろを歩いている</h3>
+      <div class="ab-sub">高齢農業者の割合 — 日本がGround Zero(世界最先端)であり、解けば輸出できる</div>
+      <div class="aging-group">65歳以上の割合</div>
+      <div class="aging-row jp"><span>🇯🇵 日本(基幹的従事者)</span><div class="ar-bar" style="width:69.5%"></div><span class="ar-val">69.5%</span></div>
+      <div class="aging-row"><span>🇰🇷 韓国(農家人口)</span><div class="ar-bar" style="width:51.3%"></div><span class="ar-val">51.3%</span></div>
+      <div class="aging-row"><span>🇺🇸 米国(生産者)</span><div class="ar-bar" style="width:40%"></div><span class="ar-val">約40%</span></div>
+      <div class="aging-group">55歳以上の割合</div>
+      <div class="aging-row"><span>🇪🇺 EU(農業経営者)</span><div class="ar-bar" style="width:61%"></div><span class="ar-val">61.0%</span></div>
+      <div class="aging-row"><span>🇨🇳 中国(農業労働力)</span><div class="ar-bar" style="width:34.8%"></div><span class="ar-val">34.8%</span></div>
+      <div class="aging-note">世界の食料の約8割は家族農業が生産(FAO)— 家族経営の継承断絶は、地球の食料安全保障の構造リスクそのもの。出典: 2025年農林業センサス / 韓国統計庁(2024) / USDA Census(2022) / Eurostat(2023) / 中国第7回人口センサス</div>
+    </div>
+
+    <div class="pillar-grid">
+      <div class="pillar-card">
+        <h3>🌍 第3のリターン「地球」— Track C</h3>
+        <p>荒廃農地の再生は<strong>土壌炭素の回復</strong>そのもの。世界の農地土壌には<strong>年3.3〜6.8Gt-CO2</strong>の貯留ポテンシャルがあり(Nature Sci. Rep.)、カーボンクレジット需要は2030年に15倍(McKinsey試算)。Indigo Agは既に累計約100万t分を発行し農家に$12M超を支払った。リターンは野菜・お金、そして<strong>「地球」</strong>。</p>
+        <div class="wc-src">出典: Zomer et al.(2017)/ McKinsey・TSVCM / Indigo Ag</div>
+      </div>
+      <div class="pillar-card">
+        <h3>🛰 観察が、検証になる — 艦隊はMRVインフラ</h3>
+        <p>カーボン市場最大の課題は信頼性 — 主要認証の熱帯林クレジットの9割超が「幻」とする調査報道が市場を揺らした。従来の検証(MRV)は<strong>$50〜200/ha</strong>と高コスト。毎日観察する艦隊+数万人の観察者は、<strong>常時・改竄困難・公開</strong>の検証データを生む。<strong>ライブ観察(エンタメ)と検証(MRV)が同一システム</strong> — Agri Portだけの構造。</p>
+        <div class="wc-src">出典: The Guardian等共同調査(2023)/ dMRV業界集計($5〜20/haへ低減)</div>
+      </div>
+      <div class="pillar-card">
+        <h3>💸 送金ポート — 仕送りが、故郷への投資になる</h3>
+        <p>世界の国際送金は低中所得国向けだけで<strong>年$685B</strong>(World Bank 2024)— FDIもODAも上回る資本流入。農村世帯では<strong>約半分が農業関連</strong>に使われる(IFAD)。ディアスポラが故郷の村のポートに出資し、故郷の畑をライブ観察する — 平均6.4%の送金手数料で消えていた価値が、農地の再生に変わる。</p>
+        <div class="wc-src">出典: World Bank Migration &amp; Development Brief / IFAD</div>
+      </div>
+    </div>
+
+    <div class="mars-band">
+      <div class="mb-quote">「地球で無人農業を解けない種は、火星でも耕せない。」</div>
+      <p>JAXAは月面農場を構想し(2019年報告書)、NASAは180超のセンサーで全自動制御する宇宙植物栽培装置(APH)をISSで運用中。<strong>完全無人・完全循環</strong>という月面農場の要求仕様は、Agri Portの施設ポートの延長線上にある。2040年 — ポートは砂漠へ、そして月面へ。フィジカルAIで農業を再発明することは、人類が「どこでも食料を作れる種」になるための練習である。</p>
+    </div>
+
+    <div class="viz-source">出典(本セクション): FAO SOFI 2025 / FAO(2017)/ UNCCD GLO2(2022)/ Nature Communications(2023)/ Eurostat / USDA / 韓国統計庁 / McKinsey・TSVCM(2021)/ World Bank(2024)/ IFAD / IPCC AR6 / JAXA・NASA</div>
+  </div>
+</section>
+
 <!-- ================= ROADMAP ================= -->
 <section id="roadmap" class="section">
   <div class="wrap">
-    <span class="kicker">ROADMAP — 2035年の大改革へ</span>
-    <h2>1つのポートから、国土の再設計へ</h2>
+    <span class="kicker">ROADMAP — 2035年の大改革、その先へ</span>
+    <h2>1つのポートから、地球の再設計へ</h2>
 
     <div class="roadmap">
       <div class="rm-item">
@@ -499,6 +635,12 @@
         <p>全国1,000ポート。フィジカルAIが自律的に耕す風景が地方の新しい原風景になり、国民の1%が何らかのポートに参加している状態へ。担い手30万人時代に、<strong>関わる人1,000万人</strong>の農業をつくる。</p>
         <span class="rm-kpi">KPI: 1,000ポート / 再生農地1万ha / 参加者100万人</span>
       </div>
+      <div class="rm-item future">
+        <div class="rm-year">2036–2040 — PHASE 4 PLANETARY</div>
+        <h3>ポートは、地球へ</h3>
+        <p>ナイロビ高原に送金ポート、アンダルシアに気候分散ポート。Track C(カーボン)を本格化し、艦隊の観察データがdMRVクレジットの検証台帳になる。<strong>世界の耕作放棄地・約1億haの0.1%=10万haの再生</strong>を目標に、日本で磨いた農業OSを、地球人のインフラとして輸出する。</p>
+        <span class="rm-kpi">KPI: 海外10カ国 / 再生10万ha / dMRVクレジット発行開始</span>
+      </div>
     </div>
   </div>
 </section>
@@ -520,7 +662,7 @@
       </svg>
       <span>Agri Port — アプリDE農業</span>
     </a>
-    <div>主要出典: 農林水産省(農林業センサス 2025概数値 / 農業構造動態調査 / 新規就農者調査 / 荒廃農地の現状と対策 / 食品流通段階別価格形成調査 / 食料・農業・農村基本計画)、NEDO、矢野経済研究所、NX総合研究所、Goldman Sachs Research、Euronews ほか。ヒーロー内「*」の数値も同出典。</div>
+    <div>主要出典: 農林水産省(農林業センサス 2025概数値 / 農業構造動態調査 / 新規就農者調査 / 荒廃農地の現状と対策 / 食品流通段階別価格形成調査 / 食料・農業・農村基本計画)、NEDO、矢野経済研究所、NX総合研究所、Goldman Sachs Research、FAO、UNCCD、World Bank、IFAD、IPCC、Euronews ほか。ヒーロー内「*」の数値も同出典。</div>
     <div class="disclaimer">
       本サイトはハッカソン用のデモンストレーションです。記載のサービス・分配率・募集は架空のものであり、金融商品の勧誘ではありません。統計データの出典は各セクションに明記しています。
     </div>

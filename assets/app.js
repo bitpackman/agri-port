@@ -129,6 +129,8 @@ const LOG_POOL = [
   ["🦾", "ヒューマノイド HMD-01(阿蘇・選果場): 本日の選果・箱詰め 84/120箱。規格外品はカット用に自動仕分け"],
   ["🦾", "ヒューマノイド HMD-01: 7/24発送分のパレタイズ完了。集荷伝票を自動発行しました"],
   ["🧊", "コールドチェーン: 予冷庫 8.2°C を維持。糖度保持モードで保管中"],
+  ["🛰", "dMRV: 本日の観察データ(NDVI・作業ログ・土壌水分)を炭素検証台帳に記録しました"],
+  ["🌱", "土壌炭素モニタ: 阿蘇 #02 の有機物含量が再生開始時比 +0.31pt — 貯留は計画どおり"],
 ];
 let logIdx = 0;
 const feed = document.getElementById("logFeed");
@@ -146,23 +148,20 @@ function pushLog() {
 pushLog(); pushLog(); pushLog();
 setInterval(pushLog, 5000);
 
-/* ---------- Return toggle ---------- */
-const rtVeg = document.getElementById("rtVeg");
-const rtCash = document.getElementById("rtCash");
-const panelVeg = document.getElementById("panelVeg");
-const panelCash = document.getElementById("panelCash");
-
+/* ---------- Return toggle (veg / cash / earth) ---------- */
+const RETURNS = {
+  veg: [document.getElementById("rtVeg"), document.getElementById("panelVeg")],
+  cash: [document.getElementById("rtCash"), document.getElementById("panelCash")],
+  earth: [document.getElementById("rtEarth"), document.getElementById("panelEarth")],
+};
 function setReturn(mode) {
-  const veg = mode === "veg";
-  rtVeg.classList.toggle("on", veg);
-  rtCash.classList.toggle("on", !veg);
-  rtVeg.setAttribute("aria-selected", veg);
-  rtCash.setAttribute("aria-selected", !veg);
-  panelVeg.classList.toggle("hidden", !veg);
-  panelCash.classList.toggle("hidden", veg);
+  Object.entries(RETURNS).forEach(([k, [btn, panel]]) => {
+    btn.classList.toggle("on", k === mode);
+    btn.setAttribute("aria-selected", k === mode);
+    panel.classList.toggle("hidden", k !== mode);
+  });
 }
-rtVeg.addEventListener("click", () => setReturn("veg"));
-rtCash.addEventListener("click", () => setReturn("cash"));
+Object.entries(RETURNS).forEach(([k, [btn]]) => btn.addEventListener("click", () => setReturn(k)));
 
 /* ---------- Market ---------- */
 const MARKET = [
