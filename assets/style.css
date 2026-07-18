@@ -1,0 +1,224 @@
+/* ============================================================
+   Agri Port — shared design tokens & base styles
+   ============================================================ */
+:root {
+  color-scheme: light;
+
+  /* Brand */
+  --green-950: #0d2a1f;
+  --green-900: #123a2b;
+  --green-800: #174d38;
+  --green-700: #1e6147;
+  --green-600: #277a59;
+  --green-500: #33936c;
+  --green-300: #8cc7aa;
+  --green-100: #dcefe4;
+  --green-50:  #eef7f1;
+  --amber:      #e8a13d;
+  --amber-deep: #b97e21;
+
+  /* Surfaces & ink (chart tokens follow the validated reference palette) */
+  --page:       #f9f8f2;
+  --card:       #ffffff;
+  --surface-1:  #fcfcfb;   /* chart surface */
+  --ink:        #0b0b0b;
+  --ink-2:      #52514e;
+  --muted:      #898781;
+  --grid:       #e1e0d9;
+  --baseline:   #c3c2b7;
+  --hairline:   rgba(11, 11, 11, 0.10);
+
+  /* Chart series (validated light-mode slots) */
+  --series-blue:  #2a78d6;
+  --series-green: #008300;
+  --seq-250: #86b6ef;
+  --seq-400: #3987e5;
+  --seq-550: #1c5cab;
+  --good:     #0ca30c;
+  --good-text:#006300;
+  --critical: #d03b3b;
+
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 2px rgba(13, 42, 31, 0.06), 0 8px 24px rgba(13, 42, 31, 0.07);
+  --shadow-lg: 0 2px 6px rgba(13, 42, 31, 0.08), 0 18px 48px rgba(13, 42, 31, 0.12);
+
+  --font: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI",
+          "Noto Sans JP", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--page);
+  color: var(--ink);
+  line-height: 1.7;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  background: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+/* ---------- Shared header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(249, 248, 242, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--hairline);
+}
+.site-header .wrap {
+  display: flex; align-items: center; gap: 28px;
+  height: 60px;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 17px; letter-spacing: 0.02em;
+}
+.brand .brand-mark { width: 28px; height: 28px; flex: none; }
+.brand small {
+  display: block; font-size: 10px; font-weight: 600;
+  color: var(--muted); letter-spacing: 0.08em;
+}
+.site-nav { display: flex; gap: 22px; margin-left: auto; font-size: 13.5px; color: var(--ink-2); }
+.site-nav a:hover { color: var(--green-700); }
+.header-cta {
+  background: var(--green-800); color: #fff;
+  padding: 8px 18px; border-radius: 999px;
+  font-size: 13.5px; font-weight: 600;
+  transition: background 0.15s ease;
+}
+.header-cta:hover { background: var(--green-700); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 28px; border-radius: 999px;
+  font-weight: 700; font-size: 15px;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--amber); color: var(--green-950); box-shadow: var(--shadow); }
+.btn-primary:hover { background: #f0ad4f; box-shadow: var(--shadow-lg); }
+.btn-ghost { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.35); }
+.btn-ghost:hover { background: rgba(255,255,255,0.2); }
+.btn-green { background: var(--green-800); color: #fff; }
+.btn-green:hover { background: var(--green-700); }
+
+/* ---------- Section scaffolding ---------- */
+.section { padding: 88px 0; }
+.section-alt { background: #fff; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
+.kicker {
+  display: inline-block; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.14em; color: var(--green-600);
+  background: var(--green-50); border: 1px solid var(--green-100);
+  padding: 4px 12px; border-radius: 999px; margin-bottom: 14px;
+}
+.section h2 { font-size: 30px; line-height: 1.4; letter-spacing: 0.01em; margin-bottom: 12px; }
+.section .lede { color: var(--ink-2); max-width: 640px; margin-bottom: 40px; }
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- Chart components (dataviz spec) ---------- */
+.viz-card {
+  background: var(--surface-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 20px 20px 14px;
+  box-shadow: var(--shadow);
+}
+.viz-title { font-size: 14.5px; font-weight: 700; }
+.viz-sub { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.viz-plot { position: relative; }
+.viz-plot svg { width: 100%; height: auto; }
+.viz-source { font-size: 11px; color: var(--muted); margin-top: 8px; }
+.viz-source a { text-decoration: underline; text-underline-offset: 2px; }
+
+.viz-tooltip {
+  position: absolute; pointer-events: none; z-index: 10;
+  background: #fff; border: 1px solid var(--hairline);
+  border-radius: 8px; box-shadow: var(--shadow-lg);
+  padding: 8px 12px; font-size: 12px; line-height: 1.5;
+  white-space: nowrap; opacity: 0; transition: opacity 0.1s ease;
+}
+.viz-tooltip.on { opacity: 1; }
+.viz-tooltip .tt-label { color: var(--muted); font-size: 11px; }
+.viz-tooltip .tt-value { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.viz-table { margin-top: 10px; }
+.viz-table summary {
+  font-size: 12px; color: var(--muted); cursor: pointer;
+  list-style: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.viz-table summary::before { content: "▸"; font-size: 10px; }
+.viz-table[open] summary::before { content: "▾"; }
+.viz-table table {
+  width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px;
+}
+.viz-table th, .viz-table td {
+  text-align: right; padding: 5px 10px;
+  border-bottom: 1px solid var(--grid);
+  font-variant-numeric: tabular-nums;
+}
+.viz-table th:first-child, .viz-table td:first-child { text-align: left; }
+.viz-table th { color: var(--muted); font-weight: 600; }
+
+/* Stat tiles */
+.stat-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+}
+.stat-tile {
+  background: var(--surface-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+}
+.stat-label { font-size: 12.5px; color: var(--ink-2); }
+.stat-value { font-size: 32px; font-weight: 700; line-height: 1.25; letter-spacing: 0.01em; }
+.stat-value small { font-size: 15px; font-weight: 600; color: var(--ink-2); margin-left: 2px; }
+.stat-delta { font-size: 12.5px; font-weight: 600; }
+.stat-delta.down { color: var(--critical); }
+.stat-delta.up { color: var(--good-text); }
+.stat-note { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--green-950); color: rgba(255,255,255,0.75);
+  padding: 48px 0 36px; font-size: 13px;
+}
+.site-footer .brand { color: #fff; margin-bottom: 10px; }
+.site-footer .disclaimer {
+  margin-top: 18px; padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.14);
+  font-size: 11.5px; color: rgba(255,255,255,0.55);
+  line-height: 1.8;
+}
+
+@media (max-width: 720px) {
+  .section { padding: 64px 0; }
+  .section h2 { font-size: 24px; }
+  .site-nav { display: none; }
+}

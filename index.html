@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agri Port — アプリDE農業 | フィジカルAI × 参加型投資農業</title>
+<meta name="description" content="フィジカルAIが耕し、あなたが育てる。農業を誰でも参加できるアクティビティに変える投資型農業プラットフォーム(ハッカソンDEMO)">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/landing.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#">
+      <svg class="brand-mark" viewBox="0 0 28 28" aria-hidden="true">
+        <circle cx="14" cy="14" r="13" fill="#174d38"/>
+        <path d="M14 21V11" stroke="#e8a13d" stroke-width="2" stroke-linecap="round"/>
+        <path d="M14 12c0-4 3-6 7-6 0 4-3 6-7 6zM14 15c0-3-2.5-5-6-5 0 3.5 2.5 5 6 5z" fill="#8cc7aa"/>
+      </svg>
+      <span>Agri Port<small>アプリDE農業</small></span>
+    </a>
+    <nav class="site-nav">
+      <a href="#problem">課題</a>
+      <a href="#solution">ソリューション</a>
+      <a href="#chain">売り方</a>
+      <a href="#scheme">ビジネスモデル</a>
+      <a href="#whynow">Why Now</a>
+      <a href="#roadmap">ロードマップ</a>
+    </nav>
+    <a class="header-cta" href="app.html">アプリDEMOを見る</a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="hero-kicker">🚜 PHYSICAL AI × FARMING INVESTMENT</span>
+      <h1>農業を、<br>誰でも参加できる<br><span class="accent">アクティビティ</span>に。</h1>
+      <p class="hero-lede">
+        労働はフィジカルAIへ。参加はアプリへ。<br>
+        1口1万円から農場のオーナーになり、自律ロボットが育てる作物を
+        ライブで観察し、<strong>野菜かお金</strong>で受け取る——
+        担い手がいなくても、関わる人が増える農業へ。
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="app.html">📱 アプリDEMOを触る</a>
+        <a class="btn btn-ghost" href="#problem">📊 データで見る課題</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hs-v">▲57<small>%</small></div>
+          <div class="hs-l">農業の担い手 25年間の減少率*</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hs-v">25.7<small>万ha</small></div>
+          <div class="hs-l">荒廃農地(東京都の約1.2倍)*</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hs-v">4,663<small>億円</small></div>
+          <div class="hs-l">2035年 農業ロボット市場(NEDO試算)*</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROBLEM ================= -->
+<section id="problem" class="section">
+  <div class="wrap">
+    <span class="kicker">SOCIAL ISSUE — 統計が示す構造</span>
+    <h2>「担い手の減少」は、人手不足ではない。<br>産業の設計問題である。</h2>
+    <p class="lede">
+      一次統計(農林水産省)を追うと、この課題は「頑張って人を増やす」では解けないことがわかります。
+      数字はすべて公的統計・公表資料に基づきます。
+    </p>
+
+    <div class="stat-row">
+      <div class="stat-tile">
+        <div class="stat-label">基幹的農業従事者(2025年)</div>
+        <div class="stat-value">102.1<small>万人</small></div>
+        <div class="stat-delta down">▼ 25年間で57%減(2000年 240万人)</div>
+        <div class="stat-note">2025年農林業センサス(概数値)</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">平均年齢</div>
+        <div class="stat-value">67.6<small>歳</small></div>
+        <div class="stat-delta down">70歳以上が 55.1%</div>
+        <div class="stat-note">同センサス — 大量リタイアは人口動態的に確定</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">20年後の担い手(農水省試算)</div>
+        <div class="stat-value">約30<small>万人</small></div>
+        <div class="stat-delta down">現在の約 1/4 に</div>
+        <div class="stat-note">農水省 基本法検証資料(令和4年11月)</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">食料自給率(カロリーベース)</div>
+        <div class="stat-value">38<small>%</small></div>
+        <div class="stat-delta">政府目標: 2030年度 45%</div>
+        <div class="stat-note">令和6年度 食料自給率(農水省)</div>
+      </div>
+    </div>
+
+    <div class="viz-grid">
+      <div class="viz-card">
+        <div class="viz-title">基幹的農業従事者数の推移と将来試算</div>
+        <div class="viz-sub">2000年 240万人 → 2025年 102.1万人。農水省は「20年後に約30万人」と試算</div>
+        <div class="landbar-legend" style="margin:0 0 8px">
+          <span class="key"><span class="sw" style="background:#008300"></span>実測(センサス)</span>
+          <span class="key"><span class="sw" style="background:repeating-linear-gradient(90deg,#008300 0 4px,transparent 4px 7px)"></span>農水省試算</span>
+        </div>
+        <div class="viz-plot" id="chartWorkers"></div>
+        <div class="viz-source">出典: 農林業センサス(農林水産省)2000–2025 / 農水省「食料・農業・農村をめぐる情勢の変化」(令和4年11月)</div>
+      </div>
+
+      <div class="viz-card">
+        <div class="viz-title">耕作放棄地面積の推移</div>
+        <div class="viz-sub">30年で3倍超 — 42.3万haは富山県1県分に匹敵(2015年で調査終了、以後は荒廃農地調査に一本化)</div>
+        <div class="viz-plot" id="chartLand"></div>
+        <div class="viz-source">出典: 農林業センサス(農林水産省)/ 日本経済新聞「きょうのことば」</div>
+      </div>
+
+      <div class="viz-card">
+        <div class="viz-title">若手の流入は、流出の1/4以下</div>
+        <div class="viz-sub">「新規就農を増やす」だけでは、構造的に穴を埋められない</div>
+        <div class="flow-compare">
+          <div class="flow-item">
+            <div class="fc-head"><span>担い手の減少ペース(2020→2025 実測)</span><strong>▼ 6.8万人/年</strong></div>
+            <div class="fc-bar out" role="img" aria-label="流出 年6.8万人"></div>
+          </div>
+          <div class="flow-item">
+            <div class="fc-head"><span>49歳以下の新規就農(2024年)</span><strong>+ 1.6万人/年</strong></div>
+            <div class="fc-bar in" role="img" aria-label="流入 年1.6万人"></div>
+          </div>
+          <p class="flow-note">※ 一方で<strong>法人経営体だけは増加(5年で+7.9%)</strong>し、経営耕地20ha以上の経営体が面積シェア5割を初めて突破 — 「少人数で広い農地を回す」構造転換はすでに始まっている。</p>
+        </div>
+        <div class="viz-source">出典: 2025年農林業センサス(概数値)/ 令和6年新規就農者調査(農林水産省)</div>
+      </div>
+
+      <div class="viz-card">
+        <div class="viz-title">荒廃農地 25.7万ha — うち9.4万haは「再生可能」と国が認定済み</div>
+        <div class="viz-sub">毎年2.5万haが新たに荒廃し、再生されるのは1.0万ha。放置の外部不経済は鳥獣害164億円/年、農地の多面的機能は年8.2兆円と評価</div>
+        <div class="landbar">
+          <div class="landbar-track">
+            <div class="landbar-seg ok">再生利用可能 9.4万ha</div>
+            <div class="landbar-seg hard">再生困難 16.3万ha</div>
+          </div>
+          <div class="landbar-legend">
+            <span class="key"><span class="sw" style="background:#008300"></span>再生利用可能(37%)= Agri Portのターゲット市場</span>
+            <span class="key"><span class="sw" style="background:#a5a49d"></span>再生困難(63%)</span>
+          </div>
+        </div>
+        <div class="viz-source">出典: 農林水産省「荒廃農地の現状と対策」(2023年調査)/ 鳥獣被害統計(令和5年度)/ 日本学術会議答申に基づく多面的機能の貨幣評価</div>
+      </div>
+    </div>
+
+    <div class="essence-grid">
+      <div class="card essence-card">
+        <div class="ec-num">断絶 01 — 労働</div>
+        <h3>農業は「現地に住む身体」を前提に設計されている</h3>
+        <p>作業は農地の上でしか発生せず、労働供給は土地に縛られる。その身体の平均年齢が<strong>67.6歳</strong>になった今、労働と土地を<strong>分離</strong>できない産業設計そのものが限界を迎えた。</p>
+      </div>
+      <div class="card essence-card">
+        <div class="ec-num">断絶 02 — 資本</div>
+        <h3>都市の資本が農地に流れる回路がない</h3>
+        <p>農地の所有は農地法で厳しく制限され、農業は小口の投資対象として設計されていない。<strong>意欲ある資金</strong>と<strong>再生可能な農地9.4万ha</strong>が、接続されないまま向かい合っている。</p>
+      </div>
+      <div class="card essence-card">
+        <div class="ec-num">断絶 03 — 関心</div>
+        <h3>「就農するか、無関係か」の二択しかない</h3>
+        <p>移住・転職という人生を賭けた参加か、スーパーで買うだけの無関係か。<strong>中間の関わり方</strong>が存在しないため、関係人口が育たず、課題は「他人事」であり続ける。</p>
+      </div>
+    </div>
+
+    <div class="essence-conclusion">
+      本質的課題 — 農業の危機は人手不足ではなく、<strong>「参加コストが極端に高い産業設計」</strong>にある。<br>
+      流出(年6.8万人)を流入(年1.6万人)で埋める発想はすでに破綻している。必要なのは、
+      <strong>労働を人間から分離し(フィジカルAI)、参加コストをアプリのタップまで下げる(Agri Port)</strong>——設計の書き換えである。
+    </div>
+  </div>
+</section>
+
+<!-- ================= SOLUTION ================= -->
+<section id="solution" class="section section-alt">
+  <div class="wrap">
+    <span class="kicker">SOLUTION</span>
+    <h2>労働はフィジカルAIへ。参加はアプリへ。</h2>
+    <p class="lede">
+      Agri Portは、荒廃農地を<strong>「ポート(港)」</strong>に変えるプラットフォーム。
+      フィジカルAIの艦隊が入港して耕作を担い、全国の参加者の資本と関心が入出港する——
+      ポートフォリオの「ポート」との、ダブルミーニングです。
+    </p>
+
+    <div class="steps-grid">
+      <div class="card step-card">
+        <img class="step-photo" src="assets/images/optimized/port-uonuma-terrace-rice.webp" alt="棚田のポートを自律ロボットが耕す風景" loading="lazy">
+        <h3>🗺 選ぶ<small>STEP 1</small></h3>
+        <p>全国の「ポート」から好きな農場を選び、<strong>1口1万円</strong>から参加。魚沼の棚田、阿蘇の元・耕作放棄地、十勝の大規模輪作——ポートフォリオを組むように農業に参加する。</p>
+      </div>
+      <div class="card step-card">
+        <img class="step-photo" src="assets/images/optimized/part-2035-farm-os-app-observe.webp" alt="田んぼの前でタブレットの農場OSを開き、ロボットとドローンを観察する" loading="lazy">
+        <h3>📡 観る<small>STEP 2</small></h3>
+        <p>自分の区画をライブカメラとAI作業ログで観察。「AGRI-BOT 03が雑草214株を除去」「台風接近、深水管理へ自動移行」——<strong>推し農場をオブザーブする</strong>新しい日常体験。</p>
+      </div>
+      <div class="card step-card">
+        <img class="step-photo" src="assets/images/optimized/supply-chain-humanoid-tomato-packing.webp" alt="ヒューマノイドがトマトを選果して産直Boxに詰める" loading="lazy">
+        <h3>🎁 受け取る<small>STEP 3</small></h3>
+        <p>リターンは<strong>野菜でも、お金でも</strong>。自分の区画で採れた収穫物の産直Box、または販売収益からの分配。ポートごとに、いつでも切り替え可能。</p>
+      </div>
+    </div>
+
+    <figure class="cinema">
+      <img src="assets/images/optimized/section-2035-physical-ai-fleet-hub.webp" alt="山あいのポートで充電ドックに整列し、圃場へ出動するフィジカルAI艦隊" loading="lazy">
+      <figcaption>🚢 ポートに「入港」したフィジカルAI艦隊 — 2035年イメージ</figcaption>
+    </figure>
+
+    <div class="stack-band">
+      <h3>🤖 フィジカルAIスタック — 発明を待たない。実在技術で構成する。</h3>
+      <div class="sb-sub">Agri Portはロボットメーカーではなく、商用化済みのフィジカルAIを束ねて運用する「艦隊オペレーター」</div>
+      <div class="stack-grid">
+        <div class="stack-item">
+          <span class="sk-ico">🚜</span>
+          <div><strong>自律トラクタ</strong><span>耕うん・整地・播種を無人化</span><span class="sk-ref">クボタ・ヤンマーが商用化済(約1,200〜1,700万円)→小口資本で共同保有</span></div>
+        </div>
+        <div class="stack-item">
+          <span class="sk-ico">🦾</span>
+          <div><strong>収穫ロボット(RaaS)</strong><span>アスパラ・ピーマン等で稼働中</span><span class="sk-ref">inaho: 収穫量×単価×15%の従量課金 / AGRIST: 出荷額10%のレベニューシェア</span></div>
+        </div>
+        <div class="stack-item">
+          <span class="sk-ico">🚁</span>
+          <div><strong>ドローン防除・センシング</strong><span>散布面積は5年で6.5万ha→100万haに急拡大</span><span class="sk-ref">農水省「農業分野におけるドローンの活用状況」</span></div>
+        </div>
+        <div class="stack-item">
+          <span class="sk-ico">💧</span>
+          <div><strong>AI潅水・環境制御</strong><span>土壌センサー連動の自動潅水施肥</span><span class="sk-ref">ゼロアグリ: 46都道府県470台導入、トマト収量1.5倍の事例</span></div>
+        </div>
+        <div class="stack-item">
+          <span class="sk-ico">🦿</span>
+          <div><strong>ヒューマノイド(選果・出荷)</strong><span>器用さが要る収穫後工程 — 選果・箱詰め・多品目仕分け・パレタイズ</span><span class="sk-ref">Figure 03はBMW工場の部品仕分けに実稼働 / Agility DigitはGXO物流で10万トート搬送(RaaS契約)</span></div>
+        </div>
+        <div class="stack-item">
+          <span class="sk-ico">🧠</span>
+          <div><strong>AIアグロノミスト(頭脳)</strong><span>生育判断・作業計画・全機体のオーケストレーション</span><span class="sk-ref">農場OS×ヒューマノイド連携の先行例: Agroz OS × UBTECH Walker S(垂直農場)</span></div>
+        </div>
+      </div>
+      <div class="stack-rule">役割分担の原則 — <strong>「面」の作業は専用機、「手」の作業はヒューマノイド。</strong>畑を走るのはトラクタとドローンが最速。だが野菜・果樹の労働時間の最大の塊は畑の外の<strong>選果・調製・出荷</strong>(ねぎ: 収穫+調製で労働時間の49% / いちご: 調製だけで35%)にあり、多品目×非定型のこの工程こそヒューマノイドの主戦場になる。<span class="sk-ref" style="display:inline">出典: 農水省 品目別経営統計 / 栃木県農業試験場</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SUPPLY CHAIN ================= -->
+<section id="chain" class="section">
+  <div class="wrap">
+    <span class="kicker">SUPPLY CHAIN — 第二の断絶</span>
+    <h2>作れても、売れない。<br>だから「売れてから、作る」に逆転する。</h2>
+    <p class="lede">
+      担い手問題の裏には、もう一つの構造課題 — <strong>流通</strong>があります。
+      Agri Portでは出資=前払購入。作付けの前に「買い手・数量・価格」が確定しているため、
+      サプライチェーン全体を逆向きに設計できます。
+    </p>
+
+    <div class="stat-row">
+      <div class="stat-tile">
+        <div class="stat-label">市場流通での生産者の手取り(小売価格比)</div>
+        <div class="stat-value">48.5<small>%</small></div>
+        <div class="stat-delta up">直販なら 71.8〜78.5%</div>
+        <div class="stat-note">農水省 令和4年度 食品流通段階別価格形成調査(青果物)</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">せり・入札取引の割合(青果・金額ベース)</div>
+        <div class="stat-value">9.4<small>%</small></div>
+        <div class="stat-delta down">9割は相対取引 — 出荷時点で価格未定</div>
+        <div class="stat-note">農水省 卸売市場データ集 — 生産者に価格決定権がない</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">トラック輸送能力(2030年度・対2019年度)</div>
+        <div class="stat-value">▲34.1<small>%</small></div>
+        <div class="stat-delta down">農産物輸送は9割トラック依存</div>
+        <div class="stat-note">NX総研試算(物流2024年問題)/ 令和5年度 食料・農業・農村白書</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">収穫されても出荷されない野菜</div>
+        <div class="stat-value">12.9<small>%</small></div>
+        <div class="stat-delta down">約163万t/年(規格外など)</div>
+        <div class="stat-note">令和5年産 野菜生産出荷統計 — 豊作時は1玉40円で産地廃棄も</div>
+      </div>
+    </div>
+
+    <div class="flow-compare-wrap">
+      <div class="flowline old">
+        <div class="fl-label">従来の流通</div>
+        <div class="fl-node">農家<small>価格未定の委託出荷</small></div>
+        <span class="fl-arrow">→</span>
+        <div class="fl-node">集出荷団体</div>
+        <span class="fl-arrow">→</span>
+        <div class="fl-node">卸売市場</div>
+        <span class="fl-arrow">→</span>
+        <div class="fl-node">仲卸</div>
+        <span class="fl-arrow">→</span>
+        <div class="fl-node">小売</div>
+        <span class="fl-arrow">→</span>
+        <div class="fl-node">消費者</div>
+        <div class="fl-out bad">手取り 48.5%<small>価格は市場任せ・豊作=暴落</small></div>
+      </div>
+      <div class="flowline new">
+        <div class="fl-label">Agri Port</div>
+        <div class="fl-node strong">ポート<small>収穫 = フィジカルAI</small></div>
+        <span class="fl-arrow">→</span>
+        <div class="fl-node strong">🦿 選果・箱詰め<small>ヒューマノイド HMD</small></div>
+        <span class="fl-arrow">→</span>
+        <div class="fl-node strong">🚚 予約集荷・混載<small>計画配送</small></div>
+        <span class="fl-arrow">→</span>
+        <div class="fl-node strong">参加者<small>作付け前に購入済み</small></div>
+        <div class="fl-out good">手取り相当 7割超<small>価格は作付け前に確定</small></div>
+      </div>
+    </div>
+
+    <figure class="cinema">
+      <img src="assets/images/optimized/section-2035-humanoid-packhouse-logistics.webp" alt="選果場でヒューマノイドが野菜を選別し、箱詰め・パレタイズして自動搬送車に載せる" loading="lazy">
+      <figcaption>🦿 ポート併設の選果場 — ヒューマノイドが選別・箱詰め・パレタイズを担う(イメージ)</figcaption>
+    </figure>
+
+    <div class="chain-cards">
+      <div class="card why-card">
+        <h3>🧾 需要が先、生産が後</h3>
+        <p>出資=前払購入で<strong>作付け前に完売</strong>。豊作は「暴落リスク」ではなく「参加者への嬉しい上振れ」に変わり、キャベツ1万玉廃棄のような産地廃棄の構造そのものを無効化する。国も契約取引の拡大(加工・業務用98万t→145万t目標)を推進 — 同じ方向を消費者参加型で個人農家に開く。</p>
+        <div class="wc-src">出典: 農水省「加工・業務用野菜をめぐる情勢」/ 琉球新報(2025年6月)</div>
+      </div>
+      <div class="card why-card">
+        <h3>🦿 収穫後工程はヒューマノイドが握る</h3>
+        <p>野菜・果樹の労働時間の最大の塊は<strong>畑の外の選果・調製・出荷</strong>(ねぎ49%・いちご35%)。ここをヒューマノイドが担い、区画ロット単位で参加者に紐づけてトレース。多品目×非定型のこの工程は、BMW工場の部品仕分け(Figure 03)やGXO物流の10万トート搬送(Digit)と同型の実証済みタスク。</p>
+        <div class="wc-src">出典: 農水省 品目別経営統計 / BMW Group・Agility Robotics 公表資料</div>
+      </div>
+      <div class="card why-card">
+        <h3>🚚 計画配送で「2024年問題」に適合</h3>
+        <p>需要地・数量が事前確定するため、<strong>混載・パレット化・予約集荷</strong>で物流を平準化できる(現状の農産物は手積み2時間の手荷役が残る世界)。規格外品(収穫量の約13%)も「わけあり枠」として同じ箱で参加者へ — 未出荷ロスの受け皿になる。</p>
+        <div class="wc-src">出典: NX総研 / 農水省 食品流通段階別価格形成調査(パレット化率)</div>
+      </div>
+    </div>
+
+    <div class="essence-conclusion">
+      サプライチェーンの答え — Agri Portは販路を「探す」のではなく、<strong>資金調達の瞬間に販売が完了している</strong>構造を作る。<br>
+      中抜きされていた約30ポイントの流通マージンが、参加者のリターンと地域の地代・ロボット運用費の原資に変わる。
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCHEME ================= -->
+<section id="scheme" class="section">
+  <div class="wrap">
+    <span class="kicker">BUSINESS MODEL</span>
+    <h2>資本・労働・関心を再接続するスキーム</h2>
+    <p class="lede">お金は都市から地方へ、労働はロボットへ、野菜とデータと風景は参加者へ。</p>
+
+    <div class="scheme-wrap">
+      <div class="scheme">
+        <div class="scheme-node">
+          <h4>👥 参加者(全国)</h4>
+          <ul>
+            <li>1口 ¥10,000 から参加</li>
+            <li>アプリでライブ観察</li>
+            <li>リターンは野菜 or 金銭</li>
+            <li>収穫体験イベント参加権</li>
+          </ul>
+        </div>
+        <div class="scheme-arrows">
+          <div class="ar">出資・前払購入<br><span class="arrow-line">──▶</span></div>
+          <div class="ar back"><span class="arrow-line">◀──</span><br>野菜Box / 分配金<br>ライブ映像・作業ログ</div>
+        </div>
+        <div class="scheme-node center">
+          <h4>🌱 Agri Port(運営)</h4>
+          <ul>
+            <li>ポート組成(農地リース+AI艦隊)</li>
+            <li>アプリ / ライブ配信 / 生育データ</li>
+            <li>フィジカルAIのRaaS調達・運用</li>
+            <li>販売・物流・分配</li>
+          </ul>
+        </div>
+        <div class="scheme-arrows">
+          <div class="ar">AI艦隊派遣<br>運営費・地代<br><span class="arrow-line">──▶</span></div>
+          <div class="ar back"><span class="arrow-line">◀──</span><br>収穫物・生育データ</div>
+        </div>
+        <div class="scheme-node">
+          <h4>🏞 ポート(地域・農地)</h4>
+          <ul>
+            <li>荒廃農地をリースで再生</li>
+            <li>フィジカルAIが常駐稼働</li>
+            <li>地域へ: 地代・保守委託・雇用</li>
+            <li>体験受入で関係人口を創出</li>
+          </ul>
+        </div>
+      </div>
+      <div class="scheme-foot">※ 農地は所有せずリース方式(2009年農地法改正で一般法人の賃借が全面自由化・最長50年)— 農地法の壁を回避しつつ、地代として地域に資金が還流する。</div>
+    </div>
+
+    <div class="track-grid">
+      <div class="card track-card track-a">
+        <span class="tk-tag">TRACK A — まずここから</span>
+        <h3>🥬 野菜リターン型(参加型オーナー制)</h3>
+        <ul>
+          <li>区画オーナーの<strong>前払購入契約</strong>として設計(収穫物+観察体験を販売)</li>
+          <li>購入型クラウドファンディングと同じ整理で<strong>金融商品取引法の対象外</strong></li>
+          <li>登録不要で即日スタート可能 — MVPに最適</li>
+          <li>ふるさと納税の返礼(オーナー制度型)とも接続可能</li>
+        </ul>
+        <div class="tk-law">法的根拠: モノ・サービスで返す購入型CFは金商法・自主規制の対象外(第二種金融商品取引業協会の整理による)</div>
+      </div>
+      <div class="card track-card track-b">
+        <span class="tk-tag">TRACK B — スケール期</span>
+        <h3>💴 金銭リターン型(投資型ファンド)</h3>
+        <ul>
+          <li><strong>匿名組合(TK)出資</strong>で販売収益を分配</li>
+          <li>集団投資スキーム持分=みなし有価証券として<strong>第二種金融商品取引業者と提携</strong>して募集</li>
+          <li>先行事例: セキュリテの農業ファンド(1口3万円・約300人/ファンド)</li>
+          <li>荒廃農地の再生をシリーズ化した「再生ファンド」を組成</li>
+        </ul>
+        <div class="tk-law">法的根拠: 金融庁「ファンド関連ビジネスを行う方へ」— 匿名組合出資の募集には二種業登録(または登録業者への委託)が必要</div>
+      </div>
+    </div>
+
+    <div class="revenue-row">
+      <div class="rev-item"><strong>運営フィー</strong>募集額の10〜15%(組成・運用)</div>
+      <div class="rev-item"><strong>収穫物販売マージン</strong>D2C産直・外食向け卸</div>
+      <div class="rev-item"><strong>RaaS運用差益</strong>AI艦隊の多ポート共同稼働で単価を圧縮</div>
+      <div class="rev-item"><strong>生育・土壌データ</strong>種苗・保険・研究機関へ提供</div>
+      <div class="rev-item"><strong>体験・ツーリズム</strong>収穫イベント/ポート訪問(関係人口の入口)</div>
+      <div class="rev-item"><strong>自治体連携</strong>ふるさと納税・荒廃農地対策事業の受託</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY NOW ================= -->
+<section id="whynow" class="section section-alt">
+  <div class="wrap">
+    <span class="kicker">WHY NOW — 2026年に始める理由</span>
+    <h2>3つの条件が、いま初めて揃った</h2>
+
+    <figure class="cinema">
+      <img src="assets/images/optimized/section-2035-drone-ndvi-field-intelligence.webp" alt="ドローンが圃場をスキャンし、生育データマップを生成している俯瞰イメージ" loading="lazy">
+      <figcaption>🛰 艦隊が毎日生成する生育インテリジェンス — データが第2の収穫物になる(イメージ)</figcaption>
+    </figure>
+
+    <div class="why-grid">
+      <div class="card why-card">
+        <h3>🤖 労働の外部化が「商用化済み」になった</h3>
+        <p>自律トラクタ(クボタ・ヤンマー)、収穫ロボのRaaS(inaho・AGRIST)、John Deereは2030年完全自律艦隊を宣言し、さらに<strong>ヒューマノイドのApptronikへ5.2億ドルを出資</strong> — 農機最大手が人型に賭けた。1台1,000万円超のロボットも、<strong>多数の小口参加者が1台を共同稼働させる</strong>Agri Port型なら回る(Hello Tractorが共有モデルの先行実証)。Goldman Sachsはヒューマノイド市場を2035年380億ドルと予測。</p>
+        <div class="wc-src">出典: <a href="https://www.cnbc.com/2026/02/11/apptronik-raises-520-million-at-5-billion-valuation-for-apollo-robot.html" target="_blank" rel="noopener">CNBC (2026)</a> / <a href="https://www.goldmansachs.com/insights/articles/the-global-market-for-robots-could-reach-38-billion-by-2035" target="_blank" rel="noopener">Goldman Sachs Research</a> / inaho・AGRIST公表資料</div>
+      </div>
+      <div class="card why-card">
+        <h3>🌍 「観て、受け取る農業」への支払意思は実証済み</h3>
+        <p>スペインのCrowdFarmingは樹木アダプション<strong>30万件超・売上6,500万ユーロ</strong>(2024年)、農家手取りは慣行流通の約2倍。国内でも楽天Ragriが先行したが、人手依存のまま2020年に終了 — <strong>フィジカルAIがその制約を外す</strong>のがAgri Port。</p>
+        <div class="wc-src">出典: <a href="https://www.euronews.com/my-europe/2026/06/05/crowdfarming-the-platform-that-wants-to-feed-europe-better" target="_blank" rel="noopener">Euronews (2026)</a> / 楽天Ragri公表情報</div>
+      </div>
+      <div class="card why-card">
+        <h3>⚖️ 法的な入口が開いている</h3>
+        <p>2009年改正で農地リースは全面自由化(最長50年)。野菜リターンは<strong>購入型契約として金商法の外</strong>で始められ、スケール期に二種業提携で投資型へ拡張——段階設計が制度上きれいに引ける。</p>
+        <div class="wc-src">出典: 農林水産省「法人の農地取得」/ 金融庁・第二種金融商品取引業協会</div>
+      </div>
+      <div class="card why-card">
+        <h3>📈 市場と国策が同じ方向を向いた</h3>
+        <p>国内スマート農業市場は2030年に788億円(矢野経済研究所)、農業ロボット市場は2035年に4,663億円(NEDO試算)。政府は2030年度に自給率45%目標を閣議決定 — <strong>荒廃農地の再生は国策そのもの</strong>であり、補助金・自治体連携の追い風が吹く。</p>
+        <div class="wc-src">出典: <a href="https://www.yano.co.jp/press-release/show/press_id/3740" target="_blank" rel="noopener">矢野経済研究所</a> / NEDO / 食料・農業・農村基本計画(令和7年4月)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ROADMAP ================= -->
+<section id="roadmap" class="section">
+  <div class="wrap">
+    <span class="kicker">ROADMAP — 2035年の大改革へ</span>
+    <h2>1つのポートから、国土の再設計へ</h2>
+
+    <div class="roadmap">
+      <div class="rm-item">
+        <div class="rm-year">2026 — PHASE 0</div>
+        <h3>パイロットポート(このDEMO)</h3>
+        <p>提携農家1軒+収穫ロボRaaS 1台で「観察できる区画オーナー制」を開始。野菜リターンのみ(Track A・金商法対象外)で法的リスクなく検証。ライブ配信とAI作業ログが本当に「観たいコンテンツ」になるかを実証する。</p>
+        <span class="rm-kpi">KPI: 1ポート / 参加者300人 / 継続率60%</span>
+      </div>
+      <div class="rm-item">
+        <div class="rm-year">2027–2028 — PHASE 1</div>
+        <h3>ポート網の形成</h3>
+        <p>10ポートへ拡大。ふるさと納税返礼・企業の福利厚生と接続し、AI艦隊(トラクタ+ドローン+収穫ロボ)の多ポート巡回運用でRaaS単価を圧縮。地域側に「ポート保守パートナー」の雇用を創出。</p>
+        <span class="rm-kpi">KPI: 10ポート / 参加者1万人 / 再生農地50ha</span>
+      </div>
+      <div class="rm-item future">
+        <div class="rm-year">2029–2031 — PHASE 2</div>
+        <h3>投資型への拡張(Track B)</h3>
+        <p>第二種金融商品取引業者と提携し、匿名組合型「荒廃農地再生ファンド」をシリーズ組成。金銭リターンを解禁し、機関投資家・自治体資金を受け入れ。生育データ事業を収益の第2柱に。</p>
+        <span class="rm-kpi">KPI: 100ポート / 運用資産30億円 / 再生農地1,000ha</span>
+      </div>
+      <div class="rm-item future">
+        <div class="rm-year">2032–2035 — PHASE 3</div>
+        <h3>農業を「参加インフラ」に</h3>
+        <p>全国1,000ポート。フィジカルAIが自律的に耕す風景が地方の新しい原風景になり、国民の1%が何らかのポートに参加している状態へ。担い手30万人時代に、<strong>関わる人1,000万人</strong>の農業をつくる。</p>
+        <span class="rm-kpi">KPI: 1,000ポート / 再生農地1万ha / 参加者100万人</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<div class="cta-band">
+  <h2>あなたの最初のポートを、見に行こう。</h2>
+  <p>フィジカルAIが働く農場を、いま観察できます(デモ)</p>
+  <a class="btn btn-primary" href="app.html">📱 アプリDEMOを開く</a>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <a class="brand" href="#">
+      <svg class="brand-mark" viewBox="0 0 28 28" aria-hidden="true">
+        <circle cx="14" cy="14" r="13" fill="#e8a13d"/>
+        <path d="M14 21V11" stroke="#174d38" stroke-width="2" stroke-linecap="round"/>
+        <path d="M14 12c0-4 3-6 7-6 0 4-3 6-7 6zM14 15c0-3-2.5-5-6-5 0 3.5 2.5 5 6 5z" fill="#174d38"/>
+      </svg>
+      <span>Agri Port — アプリDE農業</span>
+    </a>
+    <div>主要出典: 農林水産省(農林業センサス 2025概数値 / 農業構造動態調査 / 新規就農者調査 / 荒廃農地の現状と対策 / 食品流通段階別価格形成調査 / 食料・農業・農村基本計画)、NEDO、矢野経済研究所、NX総合研究所、Goldman Sachs Research、Euronews ほか。ヒーロー内「*」の数値も同出典。</div>
+    <div class="disclaimer">
+      本サイトはハッカソン用のデモンストレーションです。記載のサービス・分配率・募集は架空のものであり、金融商品の勧誘ではありません。統計データの出典は各セクションに明記しています。
+    </div>
+  </div>
+</footer>
+
+<script src="assets/charts.js"></script>
+<script src="assets/landing.js"></script>
+</body>
+</html>

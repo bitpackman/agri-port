@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agri Port — マイポート | アプリDE農業</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/app.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+</head>
+<body class="app-body">
+
+<header class="site-header app-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 28 28" aria-hidden="true">
+        <circle cx="14" cy="14" r="13" fill="#174d38"/>
+        <path d="M14 21V11" stroke="#e8a13d" stroke-width="2" stroke-linecap="round"/>
+        <path d="M14 12c0-4 3-6 7-6 0 4-3 6-7 6zM14 15c0-3-2.5-5-6-5 0 3.5 2.5 5 6 5z" fill="#8cc7aa"/>
+      </svg>
+      <span>Agri Port<small>アプリDE農業 — DEMO</small></span>
+    </a>
+    <nav class="site-nav app-nav">
+      <a href="#portfolio">マイポート</a>
+      <a href="#live">ライブ観察</a>
+      <a href="#returns">リターン</a>
+      <a href="#market">募集中ポート</a>
+    </nav>
+    <div class="user-chip">
+      <span class="clock" id="clock">--:--</span>
+      <span class="avatar" aria-hidden="true">K</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap app-main">
+
+  <!-- ================= Portfolio summary ================= -->
+  <section id="portfolio" class="app-section">
+    <div class="app-section-head">
+      <h1>おはようございます 🌅 あなたの農場は今日も動いています</h1>
+      <p class="app-lede">フィジカルAIが夜明けから稼働中。あなたは<strong>観る・選ぶ・受け取る</strong>だけ。</p>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-tile">
+        <div class="stat-label">出資総額</div>
+        <div class="stat-value">¥240,000</div>
+        <div class="stat-note">3ポート / 24口</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">現在の評価額</div>
+        <div class="stat-value">¥261,480</div>
+        <div class="stat-delta up">▲ +8.9% <span class="stat-note-inline">生育良好により上方修正</span></div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">今季の野菜リターン(確定分)</div>
+        <div class="stat-value">12.4<small>kg</small></div>
+        <div class="stat-note">次回発送 7/24(ミニトマト 2.1kg)</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">あなたの農場で稼働中のフィジカルAI</div>
+        <div class="stat-value">5<small>機</small></div>
+        <div class="stat-note">畑4機+選果場ヒューマノイド1機(人の作業 0時間)</div>
+      </div>
+    </div>
+
+    <div class="port-grid" id="portGrid"><!-- JS renders port cards --></div>
+  </section>
+
+  <!-- ================= Live observe ================= -->
+  <section id="live" class="app-section">
+    <div class="app-section-head">
+      <h2>ライブ観察 <span class="live-pill"><span class="live-dot"></span>LIVE</span></h2>
+      <p class="app-lede">いま、あなたの区画で起きていること。<span id="liveSubtitle">魚沼・棚田ポート #07</span></p>
+    </div>
+
+    <div class="live-layout">
+      <div class="live-stage card">
+        <div class="cam-tabs" role="tablist" aria-label="カメラ切替">
+          <button class="cam-tab on" data-cam="fixed" role="tab" aria-selected="true">📷 定点カメラ</button>
+          <button class="cam-tab" data-cam="pov" role="tab" aria-selected="false">🤖 ロボット視点</button>
+          <button class="cam-tab" data-cam="ndvi" role="tab" aria-selected="false">🚁 ドローンNDVI</button>
+        </div>
+        <div class="live-scene-wrap">
+          <svg id="camFixed" class="cam-view" viewBox="0 0 960 430" role="img" aria-label="農場のライブ映像 — 定点カメラ(デモ用アニメーション)">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#aee1f5"/>
+                <stop offset="0.6" stop-color="#e8f4e0"/>
+                <stop offset="1" stop-color="#f4efd8"/>
+              </linearGradient>
+              <linearGradient id="soil" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#8a6b4d"/>
+                <stop offset="1" stop-color="#6d5138"/>
+              </linearGradient>
+            </defs>
+
+            <!-- sky -->
+            <rect width="960" height="240" fill="url(#sky)"/>
+            <circle cx="820" cy="70" r="34" fill="#ffd97a" opacity="0.95"/>
+            <g id="clouds">
+              <ellipse cx="180" cy="60" rx="56" ry="16" fill="#fff" opacity="0.85"/>
+              <ellipse cx="240" cy="52" rx="40" ry="13" fill="#fff" opacity="0.7"/>
+              <ellipse cx="560" cy="90" rx="48" ry="14" fill="#fff" opacity="0.75"/>
+            </g>
+            <!-- mountains -->
+            <path d="M0 240 L120 150 L220 240 Z" fill="#9dbfa5"/>
+            <path d="M140 240 L290 120 L440 240 Z" fill="#86ab90"/>
+            <path d="M380 240 L520 165 L660 240 Z" fill="#9dbfa5"/>
+            <path d="M600 240 L780 130 L960 240 Z" fill="#86ab90"/>
+
+            <!-- field -->
+            <rect y="238" width="960" height="192" fill="url(#soil)"/>
+            <g id="rows">
+              <path d="M0 260 H960" stroke="#3f7d3f" stroke-width="10" opacity="0.9"/>
+              <path d="M0 288 H960" stroke="#468a44" stroke-width="13" opacity="0.92"/>
+              <path d="M0 320 H960" stroke="#4d964a" stroke-width="16" opacity="0.94"/>
+              <path d="M0 358 H960" stroke="#54a350" stroke-width="20" opacity="0.96"/>
+              <path d="M0 402 H960" stroke="#5bb057" stroke-width="25"/>
+            </g>
+
+            <!-- autonomous robot -->
+            <g id="robot">
+              <ellipse cx="0" cy="30" rx="34" ry="7" fill="#000" opacity="0.18"/>
+              <rect x="-30" y="-2" width="60" height="24" rx="7" fill="#174d38"/>
+              <rect x="-22" y="-14" width="30" height="16" rx="5" fill="#2a7a59"/>
+              <rect x="-16" y="-10" width="12" height="8" rx="2" fill="#bfe9d4"/>
+              <circle cx="-16" cy="26" r="9" fill="#20261f"/>
+              <circle cx="16" cy="26" r="9" fill="#20261f"/>
+              <circle cx="-16" cy="26" r="3.5" fill="#8a8a8a"/>
+              <circle cx="16" cy="26" r="3.5" fill="#8a8a8a"/>
+              <rect x="24" y="-22" width="3" height="22" fill="#e8a13d"/>
+              <circle cx="25.5" cy="-24" r="4" fill="#e8a13d">
+                <animate attributeName="opacity" values="1;0.3;1" dur="1.6s" repeatCount="indefinite"/>
+              </circle>
+            </g>
+
+            <!-- drone -->
+            <g id="drone">
+              <ellipse cx="0" cy="52" rx="20" ry="4" fill="#000" opacity="0.12"/>
+              <rect x="-16" y="-4" width="32" height="9" rx="4" fill="#123a2b"/>
+              <line x1="-16" y1="0" x2="-30" y2="-8" stroke="#123a2b" stroke-width="3"/>
+              <line x1="16" y1="0" x2="30" y2="-8" stroke="#123a2b" stroke-width="3"/>
+              <ellipse cx="-30" cy="-9" rx="10" ry="2.6" fill="#52514e" opacity="0.8">
+                <animate attributeName="rx" values="10;4;10" dur="0.22s" repeatCount="indefinite"/>
+              </ellipse>
+              <ellipse cx="30" cy="-9" rx="10" ry="2.6" fill="#52514e" opacity="0.8">
+                <animate attributeName="rx" values="4;10;4" dur="0.22s" repeatCount="indefinite"/>
+              </ellipse>
+              <circle cx="0" cy="7" r="3" fill="#e8a13d"/>
+            </g>
+          </svg>
+
+          <svg id="camPov" class="cam-view hidden" viewBox="0 0 960 430" role="img" aria-label="AGRI-BOT 03の機体カメラ映像 — AI雑草検出(デモ用アニメーション)"></svg>
+          <svg id="camNdvi" class="cam-view hidden" viewBox="0 0 960 430" role="img" aria-label="ドローンによるNDVI生育マップ(デモ用アニメーション)"></svg>
+
+          <div class="scene-chip scene-chip-tl"><span class="live-dot"></span> <span id="sceneCamLabel">LIVE — 固定カメラ 02</span></div>
+          <div class="scene-chip scene-chip-tr" id="sceneClock">2026-07-18 07:41:23 JST</div>
+          <div class="scene-chip scene-chip-bl" id="scenePort">魚沼・棚田ポート #07 — コシヒカリ(出穂期)</div>
+          <div class="scene-chip scene-chip-br" id="sceneBot">🤖 AGRI-BOT 03 稼働中 · 🔋 82%</div>
+        </div>
+
+        <div class="log-feed">
+          <div class="log-head">
+            <strong>フィジカルAI 作業ログ</strong>
+            <span class="log-live">自動更新中</span>
+          </div>
+          <ul id="logFeed"></ul>
+        </div>
+      </div>
+
+      <aside class="telemetry">
+        <div class="tele-card card">
+          <div class="tele-label">土壌水分</div>
+          <div class="tele-value">62<small>%</small></div>
+          <div class="meter" role="img" aria-label="土壌水分 62% — 適正範囲">
+            <div class="meter-fill" style="width:62%"></div>
+          </div>
+          <div class="tele-note">適正範囲(55–70%)内 · AIが17:00に自動潅水を予約</div>
+        </div>
+        <div class="tele-card card">
+          <div class="tele-label">気温 / 日照</div>
+          <div class="tele-value">24.3<small>°C</small> <span class="tele-sun">☀ 良好</span></div>
+          <div class="tele-note">生育に最適な気象条件です</div>
+        </div>
+        <div class="tele-card card">
+          <div class="tele-label">生育指数(NDVI)</div>
+          <div class="tele-value">0.74 <span class="tele-up">▲ 0.03</span></div>
+          <svg class="spark" viewBox="0 0 200 44" aria-hidden="true">
+            <polyline points="0,36 18,34 36,35 54,30 72,28 90,26 108,27 126,22 144,18 162,16 180,13" fill="none" stroke="#c3c2b7" stroke-width="2" stroke-linecap="round"/>
+            <polyline points="180,13 198,10" fill="none" stroke="#008300" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="198" cy="10" r="4" fill="#008300" stroke="#fcfcfb" stroke-width="2"/>
+          </svg>
+          <div class="tele-note">平年比 +8% で生育中(過去12週)</div>
+        </div>
+        <div class="tele-card card tele-ai">
+          <div class="tele-label">AIアグロノミストの判断</div>
+          <p>出穂期に入ったため、水位を3cm上げました。台風6号の進路を監視中 — 接近時は自動で深水管理に切り替えます。</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ================= Returns ================= -->
+  <section id="returns" class="app-section">
+    <div class="app-section-head">
+      <h2>リターンセンター</h2>
+      <p class="app-lede">リターンは<strong>野菜</strong>でも<strong>お金</strong>でも。ポートごとに、いつでも切り替えられます。</p>
+    </div>
+
+    <div class="returns-layout">
+      <div class="return-sim card">
+        <div class="return-toggle" role="tablist" aria-label="リターン方式の選択">
+          <button class="rt-btn on" id="rtVeg" role="tab" aria-selected="true">🥬 野菜で受け取る</button>
+          <button class="rt-btn" id="rtCash" role="tab" aria-selected="false">💴 お金で受け取る</button>
+        </div>
+
+        <div class="return-panel" id="panelVeg">
+          <div class="rp-headline">1口(¥10,000)あたりの年間リターン(デモ試算)</div>
+          <div class="rp-value">市価相当 <strong>¥12,600</strong> 分の収穫物</div>
+          <ul class="rp-points">
+            <li>年4回、収穫期に合わせて産地直送(送料込み)</li>
+            <li>あなたの区画で採れたものだけをお届け — ロット追跡可能</li>
+            <li>収穫体験イベントへの優先参加権つき</li>
+          </ul>
+          <div class="rp-note">※ 収穫物リターン型は「売買契約(前払購入)」として設計 — 金融規制の対象外で、小さく始めやすいスキームです。</div>
+        </div>
+
+        <div class="return-panel hidden" id="panelCash">
+          <div class="rp-headline">1口(¥10,000)あたりの年間分配(デモ試算)</div>
+          <div class="rp-value">想定分配率 <strong>3.0〜5.5%</strong> <span class="rp-small">(作柄連動)</span></div>
+          <ul class="rp-points">
+            <li>販売収益から運営費を除き、匿名組合契約に基づき分配</li>
+            <li>作柄・市況により変動(元本保証はありません)</li>
+            <li>分配金の一部を「次の荒廃農地再生」に再投資するオプションあり</li>
+          </ul>
+          <div class="rp-note">※ 金銭リターン型は金商法上の集団投資スキームに該当 — 第二種金融商品取引業者との提携により提供する設計です。</div>
+        </div>
+      </div>
+
+      <div class="return-history card">
+        <div class="rh-head">分配・発送履歴</div>
+        <table>
+          <thead><tr><th>日付</th><th>ポート</th><th>内容</th><th>状態</th></tr></thead>
+          <tbody>
+            <tr><td>7/24</td><td>阿蘇 #02</td><td>ミニトマト 2.1kg</td><td><span class="badge badge-plan">発送予定</span></td></tr>
+            <tr><td>7/10</td><td>阿蘇 #02</td><td>ミニトマト 2.4kg</td><td><span class="badge badge-done">受取済</span></td></tr>
+            <tr><td>6/28</td><td>十勝 #15</td><td>第1四半期分配 ¥612</td><td><span class="badge badge-done">入金済</span></td></tr>
+            <tr><td>6/12</td><td>阿蘇 #02</td><td>ミニトマト 2.2kg</td><td><span class="badge badge-done">受取済</span></td></tr>
+            <tr><td>5/30</td><td>魚沼 #07</td><td>田植え完了レポート</td><td><span class="badge badge-done">閲覧済</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="chain-card card">
+        <div class="rh-head">🚚 いま届く途中のリターン — 阿蘇 #02 ミニトマト 2.1kg <span class="chain-note">あなたの区画ロット #A02-1407</span></div>
+        <div class="chain-steps">
+          <div class="chain-step done">
+            <div class="cs-ico">🍅</div>
+            <div class="cs-name">収穫</div>
+            <div class="cs-by">HARVEST-X 11</div>
+            <div class="cs-time">7/23 05:12 ✓</div>
+          </div>
+          <div class="chain-bar done"></div>
+          <div class="chain-step active">
+            <div class="cs-ico">🦾</div>
+            <div class="cs-name">選果・箱詰め</div>
+            <div class="cs-by">ヒューマノイド HMD-01</div>
+            <div class="cs-time">84/120箱 進行中</div>
+          </div>
+          <div class="chain-bar"></div>
+          <div class="chain-step">
+            <div class="cs-ico">🧊</div>
+            <div class="cs-name">予冷・集荷</div>
+            <div class="cs-by">ヤマト運輸(自動手配)</div>
+            <div class="cs-time">7/24 14:00 予約済</div>
+          </div>
+          <div class="chain-bar"></div>
+          <div class="chain-step">
+            <div class="cs-ico">🏠</div>
+            <div class="cs-name">お届け</div>
+            <div class="cs-by">産地直送・中間流通ゼロ</div>
+            <div class="cs-time">7/25 予定</div>
+          </div>
+        </div>
+        <p class="chain-foot">このリターンは<strong>作付け前にあなたが購入済み</strong>。市場もセリも通らず、選果からパレタイズまでをヒューマノイドが担うため、収穫の約48時間後には食卓に届きます。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Market ================= -->
+  <section id="market" class="app-section">
+    <div class="app-section-head">
+      <h2>募集中のポート</h2>
+      <p class="app-lede">全国の<strong>耕作放棄地</strong>が、フィジカルAIの入港で「ポート」に生まれ変わるのを待っています。</p>
+    </div>
+    <div class="market-grid" id="marketGrid"><!-- JS renders --></div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 28 28" aria-hidden="true">
+        <circle cx="14" cy="14" r="13" fill="#e8a13d"/>
+        <path d="M14 21V11" stroke="#174d38" stroke-width="2" stroke-linecap="round"/>
+        <path d="M14 12c0-4 3-6 7-6 0 4-3 6-7 6zM14 15c0-3-2.5-5-6-5 0 3.5 2.5 5 6 5z" fill="#174d38"/>
+      </svg>
+      <span>Agri Port</span>
+    </a>
+    <div class="disclaimer">
+      本画面はハッカソン用のデモンストレーションです。表示されている農場・数値・分配率・映像はすべて架空のシミュレーションであり、実際の金融商品の勧誘ではありません。
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="assets/app.js"></script>
+<script src="assets/scenes.js"></script>
+</body>
+</html>
