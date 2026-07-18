@@ -121,6 +121,12 @@
   .slide.on .flow-line > .farrow:nth-child(6) { animation: rise 0.4s ease 1.1s both, arrowPulse 1.6s ease-in-out 2.5s infinite; }
   .slide.on .flow-line > .farrow:nth-child(8) { animation: rise 0.4s ease 1.4s both, arrowPulse 1.6s ease-in-out 2.75s infinite; }
 
+  .power-line {
+    margin-top: 5vh; font-size: clamp(19px, 2.4vw, 36px); font-weight: 800;
+    line-height: 1.8; color: var(--amber-l);
+  }
+  .slide.on .power-line { animation: rise 0.7s ease 1.15s both; }
+
   /* ---- decline curve (S3) ---- */
   .decline { position: absolute; right: 4vw; bottom: 5vh; width: 29vw; opacity: 0.8; pointer-events: none; }
   .decline .dl { stroke-dasharray: 1; stroke-dashoffset: 1; }
@@ -242,24 +248,38 @@
   </div>
 </section>
 
-<!-- 5. Business -->
+<!-- 7. Business ① 商流の逆転 -->
 <section class="slide">
-  <span class="kicker">BUSINESS MODEL — 売れてから、作る</span>
-  <h1>資金調達の瞬間に、<br><span class="accent">販売が完了</span>している。</h1>
-  <div class="flow-line">
-    <div class="fnode">参加者<small>作付け前に前払購入</small></div>
-    <span class="farrow">→</span>
-    <div class="fnode hot">ポート<small>フィジカルAI艦隊が耕作</small></div>
-    <span class="farrow">→</span>
-    <div class="fnode hot">選果・箱詰め<small>ヒューマノイド</small></div>
-    <span class="farrow">→</span>
-    <div class="fnode">参加者へ直送<small>収穫から約48時間</small></div>
+  <span class="kicker">BUSINESS MODEL ① — 商流の逆転</span>
+  <h1 style="font-size:clamp(28px,4.2vw,62px)">作れても、売れない。<br>だから<span class="accent">「売れてから、作る」</span>に逆転する。</h1>
+  <div class="bignum-row" style="margin-top:3.5vh">
+    <div class="bignum"><div class="bn-v"><span class="cnt" data-target="48.5" data-dec="1">0</span><small>%</small></div><div class="bn-l">市場流通での生産者の手取り<br>(小売価格比・4段階流通)</div></div>
+    <div class="bignum"><div class="bn-v"><span class="cnt" data-target="9.4" data-dec="1">0</span><small>%</small></div><div class="bn-l">せり取引の割合 — 9割は相対・価格未定の委託<br><strong>作る側に価格決定権がない</strong></div></div>
+    <div class="bignum"><div class="bn-v"><span class="cnt" data-target="12.9" data-dec="1">0</span><small>%</small></div><div class="bn-l">収穫しても出荷されない野菜<br>豊作時は1玉40円で産地廃棄</div></div>
   </div>
-  <div class="chip-row">
-    <div class="chip"><h3>🥬 Track A: 野菜リターン</h3><p>前払購入契約=<strong>金商法の対象外</strong>。登録不要で即日開始できるMVP。</p></div>
-    <div class="chip"><h3>💴 Track B: 金銭リターン</h3><p>匿名組合×二種業提携でスケール。市場流通で48.5%だった生産者手取りが<strong>7割超</strong>に。</p></div>
-    <div class="chip"><h3>🌍 Track C: 地球リターン</h3><p>土壌炭素をクレジット化。<strong>観察する艦隊がそのまま検証(MRV)インフラ</strong>になる。</p></div>
+  <div class="flow-line" style="margin-top:4vh">
+    <div class="fnode hot">参加者<small>作付け前に前払購入=完売</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode">ポート<small>フィジカルAI艦隊が耕作</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode">選果・箱詰め<small>ヒューマノイド</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode hot">参加者へ直送<small>市場もセリも通らず48時間</small></div>
   </div>
+  <div class="src">出典: 農水省 令和4年度 食品流通段階別価格形成調査 / 卸売市場データ集 / 令和5年産 野菜生産出荷統計</div>
+</section>
+
+<!-- 8. Business ② 効果と持続性 -->
+<section class="slide">
+  <span class="kicker">BUSINESS MODEL ② — 逆転の効果</span>
+  <h1>中抜きされていた<span class="accent">約30ポイント</span>が、<br>すべての原資になる。</h1>
+  <div class="bignum-row" style="margin-top:3.5vh; flex-wrap:nowrap; gap:3.5vw">
+    <div class="bignum" style="flex:1; min-width:0"><div class="bn-v"><span class="cnt" data-target="78.5" data-dec="1">0</span><small>%</small></div><div class="bn-l">生産者の手取りは48.5%→最大78.5%<br><strong>+30ptが分配・地代・ロボ運用費に変わる</strong></div></div>
+    <div class="bignum" style="flex:1; min-width:0"><div class="bn-v">廃棄<small>ゼロ設計</small></div><div class="bn-l">作付け前に完売 — 豊作は上振れに<br>規格外(収穫の12.9%)も参加者Boxへ</div></div>
+    <div class="bignum" style="flex:1; min-width:0"><div class="bn-v">4<small>層収益</small></div><div class="bn-l">運営フィー+RaaS差益+データ+カーボン<br>野菜リターンは<strong>金商法の外で今日から</strong></div></div>
+  </div>
+  <p class="power-line" style="margin-top:4vh">お金は都市から地方へ。労働はロボットへ。<br>野菜とデータと風景は、参加者へ。</p>
+  <div class="src">出典: 農水省 令和4年度 食品流通段階別価格形成調査(直販71.8〜78.5%)/ 第二種金融商品取引業協会</div>
 </section>
 
 <!-- 6. Why now -->
