@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agri Port — ピッチ資料</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --green-950: #0d2a1f; --green-800: #174d38; --green-600: #277a59;
+    --amber: #e8a13d; --amber-l: #ffc46b; --cream: #f9f8f2;
+    --ink-inv: rgba(255,255,255,0.88);
+  }
+  html, body { height: 100%; overflow: hidden; background: var(--green-950); }
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Noto Sans JP", system-ui, sans-serif;
+    color: #fff; cursor: default; -webkit-font-smoothing: antialiased;
+  }
+  .slide {
+    position: absolute; inset: 0; display: none;
+    flex-direction: column; justify-content: center;
+    padding: 6vh 7vw; overflow: hidden;
+    background: linear-gradient(160deg, #0d2a1f 0%, #123a2b 60%, #174d38 100%);
+  }
+  .slide.on { display: flex; animation: fadein 0.35s ease; }
+  @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
+  .kicker {
+    display: inline-block; align-self: flex-start;
+    font-size: clamp(12px, 1.3vw, 17px); font-weight: 800; letter-spacing: 0.14em;
+    color: var(--amber-l); border: 1px solid rgba(232,161,61,0.5);
+    background: rgba(232,161,61,0.12);
+    padding: 0.4em 1.1em; border-radius: 999px; margin-bottom: 3vh;
+  }
+  h1 { font-size: clamp(34px, 5.2vw, 78px); line-height: 1.35; font-weight: 800; letter-spacing: 0.01em; }
+  h1 .accent { color: var(--amber-l); }
+  .sub { font-size: clamp(15px, 1.7vw, 24px); color: var(--ink-inv); margin-top: 2.5vh; line-height: 2; max-width: 62vw; }
+  .sub strong { color: var(--amber-l); }
+
+  .bignum-row { display: flex; gap: 5vw; margin-top: 5vh; flex-wrap: wrap; }
+  .bignum .bn-v { font-size: clamp(44px, 6.5vw, 100px); font-weight: 800; color: var(--amber-l); line-height: 1.1; }
+  .bignum .bn-v small { font-size: 0.4em; color: var(--ink-inv); font-weight: 700; }
+  .bignum .bn-l { font-size: clamp(13px, 1.35vw, 19px); color: rgba(255,255,255,0.7); margin-top: 1vh; line-height: 1.7; }
+
+  .img-row { display: flex; gap: 2vw; margin-top: 4.5vh; align-items: stretch; }
+  .img-card { flex: 1; border-radius: 18px; overflow: hidden; position: relative; box-shadow: 0 18px 50px rgba(0,0,0,0.45); }
+  .img-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .img-card .cap {
+    position: absolute; left: 12px; bottom: 12px;
+    font-size: clamp(11px, 1.15vw, 15px); font-weight: 700; color: #fff;
+    background: rgba(10,24,18,0.75); padding: 0.4em 1em; border-radius: 999px;
+  }
+  .step-tag {
+    position: absolute; top: 12px; left: 12px;
+    font-size: clamp(11px, 1.1vw, 14px); font-weight: 800; letter-spacing: 0.08em;
+    background: var(--amber); color: #1a1206; padding: 0.35em 0.9em; border-radius: 999px;
+  }
+
+  .bg-slide { background-size: cover; background-position: center; }
+  .bg-slide::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(13,42,31,0.92) 0%, rgba(13,42,31,0.55) 55%, rgba(13,42,31,0.25) 100%); }
+  .bg-slide > * { position: relative; z-index: 1; }
+
+  .flow-line { display: flex; align-items: center; gap: 1.2vw; margin-top: 3.5vh; flex-wrap: wrap; }
+  .fnode {
+    background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.25);
+    border-radius: 14px; padding: 1.2vh 1.6vw; text-align: center;
+    font-size: clamp(13px, 1.5vw, 21px); font-weight: 700; line-height: 1.5;
+  }
+  .fnode small { display: block; font-size: 0.62em; font-weight: 500; color: rgba(255,255,255,0.6); }
+  .fnode.hot { border-color: var(--amber); background: rgba(232,161,61,0.16); }
+  .farrow { font-size: clamp(16px, 2vw, 28px); color: var(--amber-l); font-weight: 800; }
+
+  .chip-row { display: flex; gap: 1.6vw; margin-top: 4vh; flex-wrap: wrap; }
+  .chip {
+    flex: 1; min-width: 220px;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 18px; padding: 3vh 1.8vw;
+  }
+  .chip h3 { font-size: clamp(16px, 1.9vw, 26px); color: var(--amber-l); margin-bottom: 1.2vh; line-height: 1.5; }
+  .chip p { font-size: clamp(13px, 1.35vw, 18px); color: var(--ink-inv); line-height: 1.9; }
+  .chip p strong { color: #fff; }
+
+  .src { position: absolute; bottom: 3.2vh; left: 7vw; right: 7vw; font-size: clamp(10px, 1vw, 13px); color: rgba(255,255,255,0.38); }
+
+  .quote { font-size: clamp(28px, 3.8vw, 58px); font-weight: 800; color: var(--amber-l); line-height: 1.6; max-width: 78vw; }
+  .qr-box { display: flex; align-items: center; gap: 3vw; margin-top: 5vh; }
+  .qr-box img { width: clamp(120px, 14vw, 200px); border-radius: 14px; }
+  .qr-box .url { font-size: clamp(20px, 2.6vw, 40px); font-weight: 800; }
+  .qr-box .url small { display: block; font-size: 0.45em; font-weight: 600; color: rgba(255,255,255,0.6); margin-top: 0.6em; }
+
+  .hud {
+    position: fixed; bottom: 2.2vh; right: 2.4vw; z-index: 10;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 13px; color: rgba(255,255,255,0.5); font-variant-numeric: tabular-nums;
+  }
+  .dots { display: flex; gap: 6px; }
+  .dots span { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.22); }
+  .dots span.on { background: var(--amber); }
+  .brandmark { position: fixed; top: 2.6vh; right: 2.4vw; z-index: 10; display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 14px; color: rgba(255,255,255,0.75); }
+  .brandmark svg { width: 24px; height: 24px; }
+</style>
+</head>
+<body>
+
+<div class="brandmark">
+  <svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#e8a13d"/><path d="M14 21V11" stroke="#174d38" stroke-width="2" stroke-linecap="round"/><path d="M14 12c0-4 3-6 7-6 0 4-3 6-7 6zM14 15c0-3-2.5-5-6-5 0 3.5 2.5 5 6 5z" fill="#174d38"/></svg>
+  Agri Port
+</div>
+
+<!-- 1. Title -->
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/hero-2035-autonomous-agri-port.webp')">
+  <span class="kicker">🚜 PHYSICAL AI × FARMING INVESTMENT</span>
+  <h1>農業を、誰でも参加できる<br><span class="accent">アクティビティ</span>に。</h1>
+  <p class="sub"><strong>Agri Port — アプリDE農業。</strong>フィジカルAIが耕し、あなたが育てる。<br>1口1万円から始める、観察型・投資型の参加農業プラットフォーム。</p>
+</section>
+
+<!-- 2. Problem -->
+<section class="slide">
+  <span class="kicker">PROBLEM — 統計が示す構造</span>
+  <h1>「人手不足」ではない。<br>参加コストが高すぎる<span class="accent">設計問題</span>だ。</h1>
+  <div class="bignum-row">
+    <div class="bignum"><div class="bn-v">▲57<small>%</small></div><div class="bn-l">担い手は25年で240万→102万人<br>平均67.6歳・農水省試算は「20年後30万人」</div></div>
+    <div class="bignum"><div class="bn-v">1/4<small>以下</small></div><div class="bn-l">若手の流入(年1.6万人)は<br>流出(年6.8万人)の4分の1以下</div></div>
+    <div class="bignum"><div class="bn-v">25.7<small>万ha</small></div><div class="bn-l">荒廃農地は東京都の1.2倍<br>うち9.4万haは国が「再生可能」と認定済み</div></div>
+  </div>
+  <div class="src">出典: 2025年農林業センサス(概数値) / 新規就農者調査 / 荒廃農地調査(農林水産省)</div>
+</section>
+
+<!-- 3. Solution -->
+<section class="slide">
+  <span class="kicker">SOLUTION</span>
+  <h1>労働はフィジカルAIへ。<br>参加は<span class="accent">アプリ</span>へ。</h1>
+  <div class="img-row" style="height:44vh">
+    <div class="img-card"><span class="step-tag">1 選ぶ</span><img src="assets/images/optimized/port-uonuma-terrace-rice.webp" alt="ポートを選ぶ"><span class="cap">1口1万円からポートのオーナーに</span></div>
+    <div class="img-card"><span class="step-tag">2 観る</span><img src="assets/images/optimized/part-2035-farm-os-app-observe.webp" alt="アプリで観察"><span class="cap">推し農場をライブでオブザーブ</span></div>
+    <div class="img-card"><span class="step-tag">3 受け取る</span><img src="assets/images/optimized/supply-chain-humanoid-tomato-packing.webp" alt="収穫を受け取る"><span class="cap">リターンは野菜・お金・地球</span></div>
+  </div>
+</section>
+
+<!-- 4. Demo -->
+<section class="slide">
+  <span class="kicker">LIVE DEMO — agri-port.pages.dev/app.html</span>
+  <h1>AIが<span class="accent">何を見て、何を判断しているか</span>を<br>誰でも観察できる。</h1>
+  <div class="img-row" style="height:46vh">
+    <div class="img-card"><img src="docs/screenshot-cam-pov.webp" alt="ロボット視点のAI雑草検出"><span class="cap">🤖 ロボット視点 — 雑草をAI検出し、農薬ゼロで除去</span></div>
+    <div class="img-card"><img src="docs/screenshot-cam-ndvi.webp" alt="ドローンNDVI"><span class="cap">🚁 ドローンNDVI — 生育ムラを検出し追肥を自動予約</span></div>
+  </div>
+</section>
+
+<!-- 5. Business -->
+<section class="slide">
+  <span class="kicker">BUSINESS MODEL — 売れてから、作る</span>
+  <h1>資金調達の瞬間に、<br><span class="accent">販売が完了</span>している。</h1>
+  <div class="flow-line">
+    <div class="fnode">参加者<small>作付け前に前払購入</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode hot">ポート<small>フィジカルAI艦隊が耕作</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode hot">選果・箱詰め<small>ヒューマノイド</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode">参加者へ直送<small>収穫から約48時間</small></div>
+  </div>
+  <div class="chip-row">
+    <div class="chip"><h3>🥬 Track A: 野菜リターン</h3><p>前払購入契約=<strong>金商法の対象外</strong>。登録不要で即日開始できるMVP。</p></div>
+    <div class="chip"><h3>💴 Track B: 金銭リターン</h3><p>匿名組合×二種業提携でスケール。市場流通で48.5%だった生産者手取りが<strong>7割超</strong>に。</p></div>
+    <div class="chip"><h3>🌍 Track C: 地球リターン</h3><p>土壌炭素をクレジット化。<strong>観察する艦隊がそのまま検証(MRV)インフラ</strong>になる。</p></div>
+  </div>
+</section>
+
+<!-- 6. Why now -->
+<section class="slide">
+  <span class="kicker">WHY NOW</span>
+  <h1>3つの条件が、<span class="accent">いま</span>初めて揃った。</h1>
+  <div class="chip-row">
+    <div class="chip"><h3>🤖 労働の外部化が商用化済み</h3><p>収穫ロボはRaaSで稼働中(inaho・AGRIST)。ヒューマノイドはBMW工場で実稼働。<strong>農機最大手John DeereはヒューマノイドApptronikに$520Mを出資</strong>。</p></div>
+    <div class="chip"><h3>🌍 支払意思は実証済み</h3><p>欧州CrowdFarmingは樹木アダプション30万件・<strong>売上€65M</strong>。「観て、受け取る農業」に人はお金を払う。</p></div>
+    <div class="chip"><h3>⚖️ 法の入口が開いている</h3><p>農地リースは2009年に全面自由化(最長50年)。野菜リターンなら<strong>金融規制の外で今日始められる</strong>。</p></div>
+  </div>
+</section>
+
+<!-- 7. Planetary -->
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/planetary-earth-network.webp')">
+  <span class="kicker">PLANETARY — 地球人として解く</span>
+  <h1>日本は、地球の未来が<br><span class="accent">30年早く来た</span>場所。</h1>
+  <p class="sub">世界の耕作放棄地は<strong>約1億ha</strong> — 日本の荒廃農地はその縮図。高齢化は韓国・EU・中国が後を追う。<br><strong>日本で解けた農業OSは、そのまま地球の標準になる。</strong>リターンに「地球(カーボン)」を加え、数万人の観察者と艦隊がカーボンクレジットの検証インフラを兼ねる。</p>
+  <div class="src">出典: Zheng et al., Nature Communications(2023) / FAO SOFI 2025 / Eurostat / 韓国統計庁</div>
+</section>
+
+<!-- 8. Roadmap -->
+<section class="slide">
+  <span class="kicker">ROADMAP</span>
+  <h1>1つのポートから、<span class="accent">地球の再設計</span>へ。</h1>
+  <div class="flow-line" style="margin-top:5vh">
+    <div class="fnode">2026<small>パイロット1ポート<br>(このDEMO)</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode">2028<small>10ポート<br>ふるさと納税連携</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode">2031<small>100ポート<br>投資型ファンド解禁</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode hot">2035<small>1,000ポート<br>関わる人100万人</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode hot">2040<small>地球へ<br>再生10万ha・海外10カ国</small></div>
+  </div>
+  <p class="sub" style="margin-top:5vh">担い手30万人の時代に、<strong>関わる人1,000万人</strong>の農業をつくる。</p>
+</section>
+
+<!-- 9. Closing -->
+<section class="slide">
+  <span class="kicker">VISION 2040</span>
+  <p class="quote">「地球で無人農業を解けない種は、<br>火星でも耕せない。」</p>
+  <div class="qr-box">
+    <img src="docs/qr-app-demo.png" alt="アプリDEMOのQRコード">
+    <div class="url">agri-port.pages.dev<small>いま、あなたのスマホでポートを観察できます — Agri Port(アプリDE農業)</small></div>
+  </div>
+</section>
+
+<div class="hud"><span id="pos">1 / 9</span><div class="dots" id="dots"></div><span>← → で操作</span></div>
+
+<script>
+  const slides = [...document.querySelectorAll(".slide")];
+  const dots = document.getElementById("dots");
+  slides.forEach(() => dots.appendChild(document.createElement("span")));
+  let i = Math.min(slides.length - 1, Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1));
+  function show(n) {
+    i = Math.min(slides.length - 1, Math.max(0, n));
+    slides.forEach((s, k) => s.classList.toggle("on", k === i));
+    [...dots.children].forEach((d, k) => d.classList.toggle("on", k === i));
+    document.getElementById("pos").textContent = (i + 1) + " / " + slides.length;
+    history.replaceState(null, "", "#" + (i + 1));
+  }
+  addEventListener("keydown", (e) => {
+    if (["ArrowRight", " ", "PageDown", "Enter"].includes(e.key)) { e.preventDefault(); show(i + 1); }
+    if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); show(i - 1); }
+    if (e.key === "Home") show(0);
+    if (e.key === "End") show(slides.length - 1);
+  });
+  addEventListener("click", (e) => show(e.clientX > innerWidth / 2 ? i + 1 : i - 1));
+  show(i);
+</script>
+</body>
+</html>
