@@ -131,6 +131,8 @@ const LOG_POOL = [
   ["🧊", "コールドチェーン: 予冷庫 8.2°C を維持。糖度保持モードで保管中"],
   ["🛰", "dMRV: 本日の観察データ(NDVI・作業ログ・土壌水分)を炭素検証台帳に記録しました"],
   ["🌱", "土壌炭素モニタ: 阿蘇 #02 の有機物含量が再生開始時比 +0.31pt — 貯留は計画どおり"],
+  ["🕹", "テレオペ: 参加者が阿蘇 #02 の摘果を遠隔操作(4分32秒)— 操作ログを模倣学習データセットに追加"],
+  ["🐜", "スワーム実証: 手のひらユニット12機が畝3を株単位で巡回観察 — 全機正常・欠測ゼロ"],
 ];
 let logIdx = 0;
 const feed = document.getElementById("logFeed");
@@ -211,6 +213,16 @@ document.querySelectorAll(".invest-btn").forEach((b) =>
     toast("出資申込を受け付けました — 収穫まで、あとは観るだけ 🌱");
   })
 );
+
+/* ---------- Teleop (構想デモ) ---------- */
+const teleopBtn = document.getElementById("teleopBtn");
+if (teleopBtn) {
+  teleopBtn.addEventListener("click", () => {
+    teleopBtn.disabled = true;
+    teleopBtn.textContent = "✓ 7/20 06:00 の操縦枠を予約(構想デモ)";
+    toast("テレオペ枠を予約しました — あなたの5分が、AIの教師データになります 🕹");
+  });
+}
 
 /* ---------- Toast ---------- */
 let toastTimer;

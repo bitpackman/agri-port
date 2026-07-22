@@ -185,6 +185,12 @@
 .tele-ai .tele-label { color: var(--green-300); }
 .tele-ai p { font-size: 12.5px; line-height: 1.8; margin-top: 6px; }
 
+.tele-teleop { border: 1.5px dashed var(--green-300); }
+.tele-teleop .tele-label { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; color: var(--green-700); }
+.tele-teleop p { font-size: 12px; line-height: 1.8; margin-top: 6px; color: var(--ink-2); }
+.teleop-btn { width: 100%; margin-top: 10px; padding: 10px; font-size: 13px; }
+.teleop-btn[disabled] { background: var(--green-100); color: var(--green-700); cursor: default; }
+
 /* ---------- Returns ---------- */
 .returns-layout {
   display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 16px;

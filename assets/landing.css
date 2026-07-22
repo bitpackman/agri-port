@@ -363,6 +363,13 @@
 .mars-band p { font-size: 13.5px; color: rgba(255, 255, 255, 0.78); line-height: 1.9; max-width: 760px; }
 .planetary .viz-source { color: rgba(255, 255, 255, 0.4); margin-top: 28px; }
 
+/* ---------- Beyond radar ---------- */
+.beyond-head {
+  margin-top: 40px; font-size: 13px; font-weight: 800;
+  letter-spacing: 0.08em; color: var(--amber-deep);
+}
+.beyond-head + .revenue-row { margin-top: 14px; }
+
 /* ---------- CTA band ---------- */
 .cta-band {
   background:
