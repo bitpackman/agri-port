@@ -90,6 +90,70 @@ No text, no logos.
 
 ---
 
+## 🎥 追加依頼: アプリ「定点カメラ」用(2026-07-22)
+
+Webアプリのライブ観察=「自分のファームのロボットたちを見守る」画面用。ピッチ動画と違い、
+**カメラは絶対に動かさない(監視カメラ/ライブ配信の画)** が最重要ルールです。
+アプリのポート3つに対応する3本+情緒用の1本。
+
+**この4本だけの追加仕様**:
+- カメラ固定(プロンプトの "The camera never moves" が肝。動くと"映画"になってしまう)
+- 画は少し高め(ポール設置のカメラ想定)・広め
+- ロボットが画面をゆっくり横切る構図はループ時に「次の巡回が始まった」ように見えて好都合
+- アプリ側で上下が少し切れて横長(約21:9)表示になるため、**重要な被写体は画面の上下中央**に
+- タイムスタンプやRECマークは入れない(アプリのUIチップを上に重ねます)
+
+### 6. `video-cam-uonuma-rice.mp4` — 魚沼・棚田ポート #07(定点)
+
+```
+Static locked-off wide shot from a fixed surveillance camera mounted on a pole,
+slightly elevated, overlooking green terraced rice paddies in a Japanese mountain
+valley on a clear early morning. The camera never moves. A small green autonomous
+farming robot slowly drives along a path between the paddies from left to right,
+a tiny status light blinking. A drone crosses the sky far in the background.
+Rice stalks sway gently in the breeze, light morning mist on the far mountains.
+Photorealistic, natural colors, the steady feel of a live webcam feed.
+No people, no on-screen text, no logos, no camera movement.
+```
+
+### 7. `video-cam-aso-tomato.mp4` — 阿蘇・再生ポート #02(ハウス内定点)
+
+```
+Static locked-off shot from a fixed camera mounted high inside a bright modern
+greenhouse, looking down a long row of cherry tomato vines heavy with red fruit.
+The camera never moves. A wheeled robot with a slim robotic arm moves slowly
+along the row toward the camera, gently picking ripe cherry tomatoes and placing
+them into its onboard crate. Soft sunlight diffused through the greenhouse roof,
+leaves trembling slightly under ventilation fans. Photorealistic, natural colors,
+live webcam feel. No people, no on-screen text, no logos, no camera movement.
+```
+
+### 8. `video-cam-tokachi-potato.mp4` — 十勝・広域ポート #15(定点)
+
+```
+Static locked-off wide shot from a fixed camera on a pole overlooking a vast
+potato field with long straight green rows under a big blue Hokkaido sky with
+scattered clouds. The camera never moves. In the middle distance, a compact
+driverless tractor steadily works its way along the rows, a faint dust trail
+behind it. A small drone hovers briefly over the field, then flies on. Clouds
+drift slowly, crops ripple in the wind. Photorealistic, natural colors, the
+steady feel of a live monitoring camera. No people, no on-screen text, no logos,
+no camera movement.
+```
+
+### 9. `video-cam-dusk-return.mp4` — 夕暮れの帰還(情緒枠・任意)
+
+```
+Static locked-off shot from a fixed camera at the edge of a farm field at dusk.
+The camera never moves. Two small autonomous farming robots slowly drive back to
+a solar charging station and dock themselves as the sky turns warm orange, their
+status lights switching to a gentle slow breathing glow. Calm evening, long soft
+shadows, distant mountains. Photorealistic, warm natural colors, live webcam feel.
+No people, no on-screen text, no logos, no camera movement.
+```
+
+用途: 「今日もロボットたちが働いてくれた」を見せる一枚。アプリの夜間表示や、ピッチのクロージング前の"間"にも使える。
+
 ## 調整のコツ(Veo/Geminiでうまく出ない時)
 
 - 文字やUIが出てしまう → プロンプト末尾の "No on-screen text" を "absolutely no text, no numbers, no interface elements" に強める
