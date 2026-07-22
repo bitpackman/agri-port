@@ -80,7 +80,7 @@
 }
 .live-stage { overflow: hidden; }
 .cam-tabs {
-  display: flex; gap: 8px; padding: 10px 12px;
+  display: flex; gap: 8px; padding: 10px 12px; flex-wrap: wrap;
   background: #0d1a14;
 }
 .cam-tab {
@@ -91,8 +91,8 @@
 }
 .cam-tab:hover { background: rgba(255, 255, 255, 0.16); }
 .cam-tab.on { background: var(--amber); color: #1a1206; font-weight: 700; }
-.live-scene-wrap { position: relative; background: #0d1a14; }
-.live-scene-wrap svg { display: block; width: 100%; height: auto; }
+.live-scene-wrap { position: relative; background: #0d1a14; aspect-ratio: 960 / 430; }
+.live-scene-wrap svg.cam-view { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .cam-view.hidden { display: none; }
 .cam-video {
   position: absolute; inset: 0; width: 100%; height: 100%;

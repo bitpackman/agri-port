@@ -98,7 +98,7 @@ No text, no logos.
 Webアプリのライブ観察=「自分のファームのロボットたちを見守る」画面用。ピッチ動画と違い、
 **カメラは絶対に動かさない(監視カメラ/ライブ配信の画)** が最重要ルールです。
 
-### 10. `video-cam-port-live.mp4` — 定点カメラ(最優先): 農業ロボ×ヒューマノイド×ドローンが働く風景
+### 10. `video-cam-port-live.mp4` ✅ 充当済み(2026-07-23): ユーザー生成の定点2本(圃場=トラクタ+ドローン / ハウス=収穫ロボ)+既存のヒューマノイド選果動画を「選果場カメラ」タブに転用し、5カメラ体制で完結
 
 ```
 Static locked-off wide shot from a fixed surveillance camera mounted on a pole,

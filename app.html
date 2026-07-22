@@ -80,6 +80,8 @@
       <div class="live-stage card">
         <div class="cam-tabs" role="tablist" aria-label="カメラ切替">
           <button class="cam-tab on" data-cam="fixed" role="tab" aria-selected="true">📷 定点カメラ</button>
+          <button class="cam-tab" data-cam="house" role="tab" aria-selected="false">🍅 ハウスカメラ</button>
+          <button class="cam-tab" data-cam="pack" role="tab" aria-selected="false">🦿 選果場カメラ</button>
           <button class="cam-tab" data-cam="pov" role="tab" aria-selected="false">🤖 ロボット視点</button>
           <button class="cam-tab" data-cam="ndvi" role="tab" aria-selected="false">🚁 ドローンNDVI</button>
         </div>
@@ -156,6 +158,9 @@
           <svg id="camPov" class="cam-view hidden" viewBox="0 0 960 430" role="img" aria-label="AGRI-BOT 03の機体カメラ映像 — AI雑草検出(デモ用アニメーション)"></svg>
           <svg id="camNdvi" class="cam-view hidden" viewBox="0 0 960 430" role="img" aria-label="ドローンによるNDVI生育マップ(デモ用アニメーション)"></svg>
 
+          <video id="vidFixed" class="cam-video" src="assets/videos/video-cam-port-live.mp4" autoplay muted loop playsinline aria-label="ポート定点カメラのライブ映像 — 自律トラクタとドローン(生成動画)"></video>
+          <video id="vidHouse" class="cam-video hidden" src="assets/videos/video-cam-greenhouse.mp4" poster="assets/images/optimized/port-aso-ai-tomato-greenhouse.webp" autoplay muted loop playsinline aria-label="ハウス内カメラ — トマト収穫ロボの稼働(生成動画)"></video>
+          <video id="vidPack" class="cam-video hidden" src="assets/videos/video-humanoid-packhouse.mp4" poster="assets/images/optimized/section-2035-humanoid-packhouse-logistics.webp" autoplay muted loop playsinline aria-label="選果場カメラ — ヒューマノイドの選果・箱詰め(生成動画)"></video>
           <video id="vidPov" class="cam-video hidden" src="assets/videos/video-pov-weeding.mp4" autoplay muted loop playsinline aria-label="ロボット機体カメラのライブ映像(生成動画)"></video>
           <video id="vidNdvi" class="cam-video hidden" src="assets/videos/video-drone-scan.mp4" autoplay muted loop playsinline aria-label="ドローンの生育スキャン映像(生成動画)"></video>
           <div id="detLayer" class="det-layer hidden" aria-hidden="true"></div>

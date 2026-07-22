@@ -313,13 +313,17 @@
      camera tabs
      ============================================================ */
   const CAMS = {
-    fixed: { label: "LIVE — 固定カメラ 02", bot: "🤖 AGRI-BOT 03 稼働中 · 🔋 82%" },
+    fixed: { label: "LIVE — 固定カメラ 02(圃場)", bot: "🤖 AGRI-BOT 03 稼働中 · 🔋 82%" },
+    house: { label: "LIVE — ハウスカメラ 04(施設棟)", bot: "🍅 HARVEST-X 11 収穫中 · 本日 28.4kg" },
+    pack:  { label: "LIVE — 選果場カメラ 01", bot: "🦿 HMD-01 選果・箱詰め中 · 84/120箱" },
     pov:   { label: "LIVE — AGRI-BOT 03 機体カメラ", bot: "🎯 AI検出モード · 農薬不使用" },
     ndvi:  { label: "LIVE — DRONE D-07 · NDVIスキャン", bot: "🌱 平均NDVI 0.74 · 生育ムラ 1件" },
   };
   const views = { fixed: document.getElementById("camFixed"), pov, ndvi };
   const vids = {
     fixed: document.getElementById("vidFixed"),
+    house: document.getElementById("vidHouse"),
+    pack: document.getElementById("vidPack"),
     pov: document.getElementById("vidPov"),
     ndvi: document.getElementById("vidNdvi"),
   };
