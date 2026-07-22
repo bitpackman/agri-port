@@ -143,6 +143,7 @@
   /* ---- live demo panels (S6) ---- */
   .cam-panel { flex: 1; position: relative; border-radius: 18px; overflow: hidden; box-shadow: 0 18px 50px rgba(0,0,0,0.5); background: #0d1a14; aspect-ratio: 960 / 430; }
   .cam-panel svg { width: 100%; height: 100%; display: block; }
+  .cam-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .cam-cap {
     position: absolute; left: 12px; bottom: 12px; z-index: 2;
     font-size: clamp(11px, 1.15vw, 15px); font-weight: 700; color: #fff;
@@ -184,7 +185,7 @@
 </section>
 
 <!-- 2. Story: 田中さん -->
-<section class="slide bg-slide" style="background-image:url('assets/images/optimized/port-uonuma-terrace-rice-lg.webp')">
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/persona-farmer-dawn.webp')">
   <span class="kicker">STORY — この課題の「顔」</span>
   <h1>田中さん、72歳。<br>この谷で、<span class="accent">最後のひとり</span>。</h1>
   <p class="sub">新潟の中山間で、米を50年。離農した近所の田んぼも、頼まれて引き受けてきました。息子さんは東京。膝は限界で、「あと2年できるかどうか」。<br><strong>田中さんが手を止めた日、この谷の田んぼはまとめて「荒廃農地」の統計に変わります。</strong></p>
@@ -236,7 +237,7 @@
   <span class="kicker">SOLUTION — アプリDE農業「Agri Port」</span>
   <h1>選ぶ・観る・<span class="accent">受け取る</span>。</h1>
   <div class="img-row" style="height:44vh">
-    <div class="img-card"><span class="step-tag">1 選ぶ</span><img src="assets/images/optimized/section-2035-physical-ai-fleet-hub.webp" alt="充電ドックに艦隊が並ぶポート"><span class="cap">全国の「ポート」から選んで、1口1万円</span></div>
+    <div class="img-card"><span class="step-tag">1 選ぶ</span><img src="assets/images/optimized/port-aerial-selection.webp" alt="区画がタイル状に見えるポートの俯瞰"><span class="cap">全国の「ポート」から選んで、1口1万円</span></div>
     <div class="img-card"><span class="step-tag">2 観る</span><img src="assets/images/optimized/part-2035-farm-os-app-observe.webp" alt="アプリで観察"><span class="cap">自分の区画を、スマホでライブ観察</span></div>
     <div class="img-card"><span class="step-tag">3 受け取る</span><img src="assets/images/optimized/supply-chain-humanoid-tomato-packing.webp" alt="収穫を受け取る"><span class="cap">リターンは野菜・お金・地球</span></div>
   </div>
@@ -249,10 +250,12 @@
   <div class="img-row">
     <div class="cam-panel">
       <svg id="camPov" viewBox="0 0 960 430" role="img" aria-label="ロボット視点のAI雑草検出(ライブアニメーション)"></svg>
+      <video class="cam-video" src="assets/videos/video-pov-weeding.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
       <span class="cam-cap"><span class="live-dot"></span>🤖 ロボット視点 — 雑草をAI検出し、農薬ゼロで除去</span>
     </div>
     <div class="cam-panel">
       <svg id="camNdvi" viewBox="0 0 960 430" role="img" aria-label="ドローンNDVI生育マップ(ライブアニメーション)"></svg>
+      <video class="cam-video" src="assets/videos/video-drone-scan.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
       <span class="cam-cap"><span class="live-dot"></span>🚁 ドローンNDVI — 生育ムラを検出し追肥を自動予約</span>
     </div>
   </div>
@@ -280,7 +283,7 @@
 </section>
 
 <!-- 9. Impact: 田中さんのその後 -->
-<section class="slide bg-slide" style="background-image:url('assets/images/optimized/section-2035-regenerated-farmland-port.webp')">
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/persona-farmer-future.webp')">
   <span class="kicker">IMPACT — 田中さんの、その後</span>
   <h1>田中さんの田んぼは、<br><span class="accent">統計にならなかった</span>。</h1>
   <p class="sub">田はポートになり、<strong>地代</strong>が入る。体が楽になったぶん、田中さんは艦隊を見回る<strong>「ポートパートナー」</strong>に。谷の新米は作付け前に<strong>1,000人のオーナー</strong>に売れていて、秋には収穫イベントで谷に人が来る。</p>
