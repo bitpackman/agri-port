@@ -94,6 +94,31 @@
 .live-scene-wrap { position: relative; background: #0d1a14; }
 .live-scene-wrap svg { display: block; width: 100%; height: auto; }
 .cam-view.hidden { display: none; }
+.cam-video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; z-index: 1;
+}
+.cam-video.hidden { display: none; }
+.live-scene-wrap .scene-chip { z-index: 3; }
+
+/* HTML detection HUD over the POV video */
+.det-layer { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.det-layer.hidden { display: none; }
+.det-box {
+  position: absolute;
+  border: 2px solid #ffb84d; border-radius: 6px;
+  opacity: 0; transition: opacity 0.25s ease;
+}
+.det-box.on { opacity: 1; }
+.det-box.done { border-color: #6fe08f; }
+.det-box .det-tag {
+  position: absolute; top: -24px; left: 50%; transform: translateX(-50%);
+  font-size: 11px; font-weight: 700; white-space: nowrap;
+  font-family: "SF Mono", Menlo, monospace;
+  background: #ffb84d; color: #231506;
+  padding: 2px 8px; border-radius: 4px;
+}
+.det-box.done .det-tag { background: #6fe08f; }
 
 .sway {
   transform-box: fill-box;

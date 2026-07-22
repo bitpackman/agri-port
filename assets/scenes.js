@@ -318,6 +318,12 @@
     ndvi:  { label: "LIVE — DRONE D-07 · NDVIスキャン", bot: "🌱 平均NDVI 0.74 · 生育ムラ 1件" },
   };
   const views = { fixed: document.getElementById("camFixed"), pov, ndvi };
+  const vids = {
+    fixed: document.getElementById("vidFixed"),
+    pov: document.getElementById("vidPov"),
+    ndvi: document.getElementById("vidNdvi"),
+  };
+  const detLayer = document.getElementById("detLayer");
   document.querySelectorAll(".cam-tab").forEach((btn) => {
     btn.addEventListener("click", () => {
       const cam = btn.dataset.cam;
@@ -326,8 +332,31 @@
         b.setAttribute("aria-selected", b === btn);
       });
       Object.entries(views).forEach(([k, v]) => v && v.classList.toggle("hidden", k !== cam));
+      Object.entries(vids).forEach(([k, v]) => v && v.classList.toggle("hidden", k !== cam));
+      if (detLayer) detLayer.classList.toggle("hidden", cam !== "pov" || !vids.pov);
       document.getElementById("sceneCamLabel").textContent = CAMS[cam].label;
       document.getElementById("sceneBot").textContent = CAMS[cam].bot;
     });
   });
+
+  /* HTML detection HUD — 実写POV動画の上にAI検出ボックスを重ねる */
+  function spawnHtmlDetection() {
+    if (!detLayer || detLayer.classList.contains("hidden")) return;
+    const box = document.createElement("div");
+    box.className = "det-box";
+    const w = 8 + rnd() * 7, h = 9 + rnd() * 7;             // % units
+    box.style.width = w + "%";
+    box.style.height = h + "%";
+    box.style.left = 12 + rnd() * (74 - w) + "%";
+    box.style.top = 46 + rnd() * (42 - h) + "%";
+    const tag = document.createElement("span");
+    tag.className = "det-tag";
+    tag.textContent = "雑草 " + (0.86 + rnd() * 0.11).toFixed(2);
+    box.appendChild(tag);
+    detLayer.appendChild(box);
+    requestAnimationFrame(() => box.classList.add("on"));
+    setTimeout(() => { box.classList.add("done"); tag.textContent = "除去 ✓"; }, 1400);
+    setTimeout(() => { box.classList.remove("on"); setTimeout(() => box.remove(), 300); }, 2800);
+  }
+  setInterval(spawnHtmlDetection, 2400);
 })();
