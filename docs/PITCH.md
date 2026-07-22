@@ -1,4 +1,6 @@
-# Agri Port ピッチ台本(v4 — ビジネスモデル2枚構成)
+# Agri Port ピッチ台本(スタンダード版)
+
+> 🎭 **ピッチは2パターンあります。** こちらは数字と構造で押す**スタンダード版**(`pitch.html`)。一人のペルソナ「田中さん」の物語で貫く**ストーリー版**(`pitch-story.html` / 台本 `PITCH-STORY.md`)もあります — 審査基準が「課題の切実さ・共感」寄りならストーリー版、「事業性・実現可能性」寄りならスタンダード版がおすすめ。
 
 スライド: **[agri-port.pages.dev/pitch.html](https://agri-port.pages.dev/pitch.html)**(← → キーで送り。`#7` のようにURLで頭出し可)
 

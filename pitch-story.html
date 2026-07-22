@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agri Port — ピッチ資料(ストーリー版)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --green-950: #0d2a1f; --green-800: #174d38; --green-600: #277a59;
+    --amber: #e8a13d; --amber-l: #ffc46b; --cream: #f9f8f2;
+    --ink-inv: rgba(255,255,255,0.88);
+  }
+  html, body { height: 100%; overflow: hidden; background: var(--green-950); }
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Noto Sans JP", system-ui, sans-serif;
+    color: #fff; cursor: default; -webkit-font-smoothing: antialiased;
+  }
+  .slide {
+    position: absolute; inset: 0; display: none;
+    flex-direction: column; justify-content: center;
+    padding: 6vh 7vw; overflow: hidden;
+    background: linear-gradient(160deg, #0d2a1f 0%, #123a2b 60%, #174d38 100%);
+  }
+  .slide.on { display: flex; animation: fadein 0.35s ease; }
+  @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
+  .kicker {
+    display: inline-block; align-self: flex-start;
+    font-size: clamp(12px, 1.3vw, 17px); font-weight: 800; letter-spacing: 0.14em;
+    color: var(--amber-l); border: 1px solid rgba(232,161,61,0.5);
+    background: rgba(232,161,61,0.12);
+    padding: 0.4em 1.1em; border-radius: 999px; margin-bottom: 3vh;
+  }
+  h1 { font-size: clamp(34px, 5.2vw, 78px); line-height: 1.35; font-weight: 800; letter-spacing: 0.01em; }
+  h1 .accent { color: var(--amber-l); }
+  .sub { font-size: clamp(15px, 1.7vw, 24px); color: var(--ink-inv); margin-top: 2.5vh; line-height: 2; max-width: 62vw; }
+  .sub strong { color: var(--amber-l); }
+
+  .bignum-row { display: flex; gap: 5vw; margin-top: 5vh; flex-wrap: wrap; }
+  .bignum .bn-v { font-size: clamp(44px, 6.5vw, 100px); font-weight: 800; color: var(--amber-l); line-height: 1.1; }
+  .bignum .bn-v small { font-size: 0.4em; color: var(--ink-inv); font-weight: 700; }
+  .bignum .bn-l { font-size: clamp(13px, 1.35vw, 19px); color: rgba(255,255,255,0.7); margin-top: 1vh; line-height: 1.7; }
+
+  .img-row { display: flex; gap: 2vw; margin-top: 4.5vh; align-items: stretch; }
+  .img-card { flex: 1; border-radius: 18px; overflow: hidden; position: relative; box-shadow: 0 18px 50px rgba(0,0,0,0.45); }
+  .img-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .img-card .cap {
+    position: absolute; left: 12px; bottom: 12px;
+    font-size: clamp(11px, 1.15vw, 15px); font-weight: 700; color: #fff;
+    background: rgba(10,24,18,0.75); padding: 0.4em 1em; border-radius: 999px;
+  }
+  .step-tag {
+    position: absolute; top: 12px; left: 12px;
+    font-size: clamp(11px, 1.1vw, 14px); font-weight: 800; letter-spacing: 0.08em;
+    background: var(--amber); color: #1a1206; padding: 0.35em 0.9em; border-radius: 999px;
+  }
+
+  .bg-slide { background-size: cover; background-position: center; }
+  .bg-slide::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(13,42,31,0.92) 0%, rgba(13,42,31,0.55) 55%, rgba(13,42,31,0.25) 100%); }
+  .bg-slide > * { position: relative; z-index: 1; }
+
+  .flow-line { display: flex; align-items: center; gap: 1.2vw; margin-top: 3.5vh; flex-wrap: wrap; }
+  .fnode {
+    background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.25);
+    border-radius: 14px; padding: 1.2vh 1.6vw; text-align: center;
+    font-size: clamp(13px, 1.5vw, 21px); font-weight: 700; line-height: 1.5;
+  }
+  .fnode small { display: block; font-size: 0.62em; font-weight: 500; color: rgba(255,255,255,0.6); }
+  .fnode.hot { border-color: var(--amber); background: rgba(232,161,61,0.16); }
+  .bg-slide .fnode { background: rgba(8,18,14,0.66); }
+  .bg-slide .fnode.hot { background: rgba(52,38,10,0.72); }
+  .farrow { font-size: clamp(16px, 2vw, 28px); color: var(--amber-l); font-weight: 800; }
+
+  .chip-row { display: flex; gap: 1.6vw; margin-top: 4vh; flex-wrap: wrap; }
+  .chip {
+    flex: 1; min-width: 220px;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 18px; padding: 3vh 1.8vw;
+  }
+  .chip h3 { font-size: clamp(16px, 1.9vw, 26px); color: var(--amber-l); margin-bottom: 1.2vh; line-height: 1.5; }
+  .chip p { font-size: clamp(13px, 1.35vw, 18px); color: var(--ink-inv); line-height: 1.9; }
+  .chip p strong { color: #fff; }
+
+  .src { position: absolute; bottom: 3.2vh; left: 7vw; right: 7vw; font-size: clamp(10px, 1vw, 13px); color: rgba(255,255,255,0.38); }
+
+  .quote { font-size: clamp(28px, 3.8vw, 58px); font-weight: 800; color: var(--amber-l); line-height: 1.6; max-width: 78vw; }
+  .qr-box { display: flex; align-items: center; gap: 3vw; margin-top: 5vh; }
+  .qr-box img { width: clamp(120px, 14vw, 200px); border-radius: 14px; }
+  .qr-box .url { font-size: clamp(20px, 2.6vw, 40px); font-weight: 800; }
+  .qr-box .url small { display: block; font-size: 0.45em; font-weight: 600; color: rgba(255,255,255,0.6); margin-top: 0.6em; }
+
+  /* ---- motion: staggered reveals ---- */
+  @keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  .slide.on .kicker { animation: rise 0.5s ease both; }
+  .slide.on h1 { animation: rise 0.6s ease 0.12s both; }
+  .slide.on .sub { animation: rise 0.6s ease 0.3s both; }
+  .slide.on .quote { animation: rise 0.7s ease 0.15s both; }
+  .slide.on .qr-box { animation: rise 0.6s ease 0.5s both; }
+  .slide.on .bignum:nth-child(1) { animation: rise 0.55s ease 0.45s both; }
+  .slide.on .bignum:nth-child(2) { animation: rise 0.55s ease 0.65s both; }
+  .slide.on .bignum:nth-child(3) { animation: rise 0.55s ease 0.85s both; }
+  .slide.on .chip:nth-child(1) { animation: rise 0.55s ease 0.4s both; }
+  .slide.on .chip:nth-child(2) { animation: rise 0.55s ease 0.58s both; }
+  .slide.on .chip:nth-child(3) { animation: rise 0.55s ease 0.76s both; }
+  .slide.on .img-card:nth-child(1) { animation: rise 0.55s ease 0.35s both; }
+  .slide.on .img-card:nth-child(2) { animation: rise 0.55s ease 0.53s both; }
+  .slide.on .img-card:nth-child(3) { animation: rise 0.55s ease 0.71s both; }
+  .slide.on .flow-line > *:nth-child(1) { animation: rise 0.4s ease 0.35s both; }
+  .slide.on .flow-line > *:nth-child(2) { animation: rise 0.4s ease 0.5s both; }
+  .slide.on .flow-line > *:nth-child(3) { animation: rise 0.4s ease 0.65s both; }
+  .slide.on .flow-line > *:nth-child(4) { animation: rise 0.4s ease 0.8s both; }
+  .slide.on .flow-line > *:nth-child(5) { animation: rise 0.4s ease 0.95s both; }
+  .slide.on .flow-line > *:nth-child(6) { animation: rise 0.4s ease 1.1s both; }
+  .slide.on .flow-line > *:nth-child(7) { animation: rise 0.4s ease 1.25s both; }
+  .slide.on .flow-line > *:nth-child(8) { animation: rise 0.4s ease 1.4s both; }
+  .slide.on .flow-line > *:nth-child(9) { animation: rise 0.4s ease 1.55s both; }
+  @keyframes arrowPulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+  .slide.on .farrow { animation: rise 0.4s ease both, arrowPulse 1.6s ease-in-out 2s infinite; }
+  .slide.on .flow-line > .farrow:nth-child(2) { animation: rise 0.4s ease 0.5s both, arrowPulse 1.6s ease-in-out 2s infinite; }
+  .slide.on .flow-line > .farrow:nth-child(4) { animation: rise 0.4s ease 0.8s both, arrowPulse 1.6s ease-in-out 2.25s infinite; }
+  .slide.on .flow-line > .farrow:nth-child(6) { animation: rise 0.4s ease 1.1s both, arrowPulse 1.6s ease-in-out 2.5s infinite; }
+  .slide.on .flow-line > .farrow:nth-child(8) { animation: rise 0.4s ease 1.4s both, arrowPulse 1.6s ease-in-out 2.75s infinite; }
+
+  .power-line {
+    margin-top: 5vh; font-size: clamp(19px, 2.4vw, 36px); font-weight: 800;
+    line-height: 1.8; color: var(--amber-l);
+  }
+  .slide.on .power-line { animation: rise 0.7s ease 1.15s both; }
+
+  /* ---- decline curve (S3) ---- */
+  .decline { position: absolute; right: 4vw; bottom: 5vh; width: 29vw; opacity: 0.8; pointer-events: none; }
+  .decline .dl { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .slide.on .decline .dl { animation: draw 1.6s ease 0.5s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .decline .dlend, .decline text { opacity: 0; }
+  .slide.on .decline text:nth-of-type(1) { animation: rise 0.4s ease 0.7s both; }
+  .slide.on .decline text:nth-of-type(2) { animation: rise 0.4s ease 1.4s both; }
+  .slide.on .decline .dlend { animation: rise 0.4s ease 2.1s both; }
+  .slide.on .decline text:nth-of-type(3) { animation: rise 0.4s ease 2.1s both; }
+
+  /* ---- live demo panels (S6) ---- */
+  .cam-panel { flex: 1; position: relative; border-radius: 18px; overflow: hidden; box-shadow: 0 18px 50px rgba(0,0,0,0.5); background: #0d1a14; aspect-ratio: 960 / 430; }
+  .cam-panel svg { width: 100%; height: 100%; display: block; }
+  .cam-cap {
+    position: absolute; left: 12px; bottom: 12px; z-index: 2;
+    font-size: clamp(11px, 1.15vw, 15px); font-weight: 700; color: #fff;
+    background: rgba(10,24,18,0.78); padding: 0.4em 1em; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #ff5548; animation: blink 1.4s ease-in-out infinite; }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+  .sway { transform-box: fill-box; transform-origin: 50% 100%; animation: sway 3.8s ease-in-out infinite alternate; }
+  @keyframes sway { from { transform: rotate(-2.2deg); } to { transform: rotate(2.6deg); } }
+  .bob { animation: bobk 5.5s ease-in-out infinite; }
+  @keyframes bobk { 0%,100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+  @media (prefers-reduced-motion: reduce) { .slide.on *, .sway, .bob, .live-dot { animation-duration: 0.01s !important; animation-iteration-count: 1 !important; } }
+
+  .hud {
+    position: fixed; bottom: 2.2vh; right: 2.4vw; z-index: 10;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 13px; color: rgba(255,255,255,0.5); font-variant-numeric: tabular-nums;
+  }
+  .dots { display: flex; gap: 6px; }
+  .dots span { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.22); }
+  .dots span.on { background: var(--amber); }
+  .brandmark { position: fixed; top: 2.6vh; right: 2.4vw; z-index: 10; display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 14px; color: rgba(255,255,255,0.75); }
+  .brandmark svg { width: 24px; height: 24px; }
+</style>
+</head>
+<body>
+
+<div class="brandmark">
+  <svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#e8a13d"/><path d="M14 21V11" stroke="#174d38" stroke-width="2" stroke-linecap="round"/><path d="M14 12c0-4 3-6 7-6 0 4-3 6-7 6zM14 15c0-3-2.5-5-6-5 0 3.5 2.5 5 6 5z" fill="#174d38"/></svg>
+  Agri Port
+</div>
+
+<!-- 1. Title -->
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/hero-2035-autonomous-agri-port.webp')">
+  <span class="kicker">🚜 PHYSICAL AI × FARMING INVESTMENT</span>
+  <h1>農業を、誰でも参加できる<br><span class="accent">アクティビティ</span>に。</h1>
+  <p class="sub"><strong>Agri Port — アプリDE農業。</strong>フィジカルAIが耕し、あなたが育てる。<br>1口1万円から始める、観察型・投資型の参加農業プラットフォーム。</p>
+</section>
+
+<!-- 2. Story: 田中さん -->
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/port-uonuma-terrace-rice-lg.webp')">
+  <span class="kicker">STORY — この課題の「顔」</span>
+  <h1>田中さん、72歳。<br>この谷で、<span class="accent">最後のひとり</span>。</h1>
+  <p class="sub">新潟の中山間で、米を50年。離農した近所の田んぼも、頼まれて引き受けてきました。息子さんは東京。膝は限界で、「あと2年できるかどうか」。<br><strong>田中さんが手を止めた日、この谷の田んぼはまとめて「荒廃農地」の統計に変わります。</strong></p>
+  <div class="src">※田中さんは統計から組み立てたモデルケース(仮名)です。ただし、次のページの数字はすべて実在します。</div>
+</section>
+
+<!-- 3. Problem: 数字 -->
+<section class="slide">
+  <span class="kicker">PROBLEM — 田中さんは、ひとりではない</span>
+  <h1>作る人が消えていく。<br>作っても、<span class="accent">報われない</span>。</h1>
+  <p class="sub">70歳以上が55%。若手の流入は、流出の4分の1 — 「頑張って人を増やす」では、もう届きません。</p>
+  <div class="bignum-row">
+    <div class="bignum"><div class="bn-v">▲<span class="cnt" data-target="57">0</span><small>%</small></div><div class="bn-l">担い手は25年で240万→102万人<br>平均67.6歳。農水省試算は20年後30万人</div></div>
+    <div class="bignum"><div class="bn-v"><span class="cnt" data-target="48.5" data-dec="1">0</span><small>%</small></div><div class="bn-l">作っても、手取りは小売価格の半分以下<br>価格は市場任せ — 自分では決められない</div></div>
+    <div class="bignum"><div class="bn-v"><span class="cnt" data-target="12.9" data-dec="1">0</span><small>%</small></div><div class="bn-l">収穫しても出荷されない野菜<br>豊作の年は、1玉40円で畑に廃棄される</div></div>
+  </div>
+  <svg class="decline" viewBox="0 0 420 210" aria-hidden="true">
+    <path class="dl" d="M14 26 C 100 40, 160 66, 240 122 S 356 178, 400 186" fill="none" stroke="#ffc46b" stroke-width="3.5" stroke-linecap="round" pathLength="1"/>
+    <text x="14" y="16" font-size="12" fill="rgba(255,255,255,0.75)" font-weight="700">240万人(2000)</text>
+    <text x="196" y="102" font-size="12" fill="rgba(255,255,255,0.75)" font-weight="700">102万人(2025)</text>
+    <circle class="dlend" cx="400" cy="186" r="6" fill="#ffc46b"/>
+    <text x="322" y="172" font-size="12" fill="#ffc46b" font-weight="800">30万人(2040年代)</text>
+  </svg>
+  <div class="src">出典: 2025年農林業センサス(概数値)/ 食品流通段階別価格形成調査 / 野菜生産出荷統計(農林水産省)</div>
+</section>
+
+<!-- 4. なぜ止められなかったのか -->
+<section class="slide">
+  <span class="kicker">WHY UNSOLVED — なぜ、止められなかったのか</span>
+  <h1>誰も怠けていない。<br>産業の<span class="accent">「つくり」</span>の問題だった。</h1>
+  <div class="chip-row">
+    <div class="chip"><h3>① 関わる方法が「移住」しかなかった</h3><p>農業に参加する=人生を賭けて移り住むこと。都市に住む人の関心とお金には、<strong>入口そのものがなかった</strong>。</p></div>
+    <div class="chip"><h3>② 労働が、土地に縛られていた</h3><p>作業は農地の上でしか発生しない。そこに住む身体が必要で、<strong>その身体が70歳を超えた</strong>。</p></div>
+    <div class="chip"><h3>③ 1軒では、機械に投資できない</h3><p>自律トラクタは1,000万円超。高齢の個人経営にとって、<strong>返せる見込みのない投資</strong>だった。</p></div>
+  </div>
+  <p class="sub" style="margin-top:4vh">補助金や善意が足りなかったのではありません。<strong>人がそこに住んで働くことを前提にした産業のつくり</strong>が、人口動態に追い抜かれたのです。</p>
+</section>
+
+<!-- 5. 活路 -->
+<section class="slide">
+  <span class="kicker">BREAKTHROUGH — フィジカルAIの活路</span>
+  <h1>フィジカルAIは、<br>労働と土地を<span class="accent">切り離す</span>。</h1>
+  <p class="sub">ロボットが「現地に住む身体」の代わりになる。人は、どこからでも繋がれる。<br>これは未来の話ではありません — 収穫ロボは従量課金で、ヒューマノイドは自動車工場で、<strong>もう働いています</strong>。そして1台1,000万円の機体も、<strong>1,000人で分ければ1人1万円</strong>。</p>
+  <p class="power-line">だから私たちは、農業を<br>「移住」から「ログイン」に変えます。</p>
+</section>
+
+<!-- 6. Solution -->
+<section class="slide">
+  <span class="kicker">SOLUTION — アプリDE農業「Agri Port」</span>
+  <h1>選ぶ・観る・<span class="accent">受け取る</span>。</h1>
+  <div class="img-row" style="height:44vh">
+    <div class="img-card"><span class="step-tag">1 選ぶ</span><img src="assets/images/optimized/section-2035-physical-ai-fleet-hub.webp" alt="充電ドックに艦隊が並ぶポート"><span class="cap">全国の「ポート」から選んで、1口1万円</span></div>
+    <div class="img-card"><span class="step-tag">2 観る</span><img src="assets/images/optimized/part-2035-farm-os-app-observe.webp" alt="アプリで観察"><span class="cap">自分の区画を、スマホでライブ観察</span></div>
+    <div class="img-card"><span class="step-tag">3 受け取る</span><img src="assets/images/optimized/supply-chain-humanoid-tomato-packing.webp" alt="収穫を受け取る"><span class="cap">リターンは野菜・お金・地球</span></div>
+  </div>
+</section>
+
+<!-- 7. Live demo -->
+<section class="slide">
+  <span class="kicker">LIVE DEMO — リモート参加型農業(いま触れます: agri-port.pages.dev)</span>
+  <h1>フィジカルAIの視点と、<br>あなたを<span class="accent">繋ぐ</span>。</h1>
+  <div class="img-row">
+    <div class="cam-panel">
+      <svg id="camPov" viewBox="0 0 960 430" role="img" aria-label="ロボット視点のAI雑草検出(ライブアニメーション)"></svg>
+      <span class="cam-cap"><span class="live-dot"></span>🤖 ロボット視点 — 雑草をAI検出し、農薬ゼロで除去</span>
+    </div>
+    <div class="cam-panel">
+      <svg id="camNdvi" viewBox="0 0 960 430" role="img" aria-label="ドローンNDVI生育マップ(ライブアニメーション)"></svg>
+      <span class="cam-cap"><span class="live-dot"></span>🚁 ドローンNDVI — 生育ムラを検出し追肥を自動予約</span>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Business -->
+<section class="slide">
+  <span class="kicker">BUSINESS — 商流の逆転</span>
+  <h1>「作っても、報われない」を、<br><span class="accent">売れてから、作る</span>で逆転する。</h1>
+  <div class="flow-line" style="margin-top:3.5vh">
+    <div class="fnode hot">参加者<small>作付け前に前払購入=完売</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode">ポート<small>フィジカルAI艦隊が耕作</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode">選果・箱詰め<small>ヒューマノイド</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode hot">参加者へ直送<small>市場もセリも通らず48時間</small></div>
+  </div>
+  <div class="bignum-row" style="margin-top:4vh; flex-wrap:nowrap; gap:3.5vw">
+    <div class="bignum" style="flex:1; min-width:0"><div class="bn-v"><span class="cnt" data-target="78.5" data-dec="1">0</span><small>%</small></div><div class="bn-l">生産者の手取りは48.5%→最大78.5%<br><strong>差の30ptが分配・地代・ロボ運用費に</strong></div></div>
+    <div class="bignum" style="flex:1; min-width:0"><div class="bn-v">廃棄<small>ゼロ設計</small></div><div class="bn-l">作付け前に完売 — 豊作は上振れに<br>規格外(収穫の12.9%)も参加者Boxへ</div></div>
+    <div class="bignum" style="flex:1; min-width:0"><div class="bn-v">今日<small>から</small></div><div class="bn-l">野菜リターンは前払購入=金商法の外<br>登録不要で始められる(スケール期に投資型へ)</div></div>
+  </div>
+  <div class="src">出典: 農水省 令和4年度 食品流通段階別価格形成調査(直販71.8〜78.5%)/ 第二種金融商品取引業協会</div>
+</section>
+
+<!-- 9. Impact: 田中さんのその後 -->
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/section-2035-regenerated-farmland-port.webp')">
+  <span class="kicker">IMPACT — 田中さんの、その後</span>
+  <h1>田中さんの田んぼは、<br><span class="accent">統計にならなかった</span>。</h1>
+  <p class="sub">田はポートになり、<strong>地代</strong>が入る。体が楽になったぶん、田中さんは艦隊を見回る<strong>「ポートパートナー」</strong>に。谷の新米は作付け前に<strong>1,000人のオーナー</strong>に売れていて、秋には収穫イベントで谷に人が来る。</p>
+  <p class="power-line">お金は都市から地方へ。労働はロボットへ。<br>野菜とデータと風景は、参加者へ。</p>
+</section>
+
+<!-- 10. Planetary -->
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/planetary-earth-network.webp')">
+  <span class="kicker">PLANETARY — 地球の課題</span>
+  <h1>田中さんは、<br><span class="accent">世界中にいる</span>。</h1>
+  <p class="sub">EUの農業経営者は<strong>61%が55歳以上</strong>。韓国は農家の<strong>51%が65歳以上</strong>。世界の耕作放棄地は<strong>約1億ha</strong> — 日本は、この課題が最初に極まる場所です。<br>ここで解ければ、その答えは<strong>そのまま世界の田中さんに渡せる</strong>。リターンに「地球(カーボン)」を加え、毎日観察する艦隊が検証のインフラを兼ねます。</p>
+  <div class="src">出典: Eurostat(2023)/ 韓国統計庁(2024)/ Zheng et al., Nature Communications(2023)/ FAO SOFI 2025</div>
+</section>
+
+<!-- 11. Roadmap -->
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/desert-port-greenhouse.webp')">
+  <span class="kicker">ROADMAP — 私たちの野望</span>
+  <h1>フルオート農業で、<br><span class="accent">国土を再稼働</span>する。</h1>
+  <div class="flow-line" style="margin-top:5vh">
+    <div class="fnode">2026<small>パイロット1ポート<br>(このDEMO)</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode">2028<small>10ポート<br>ふるさと納税連携</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode">2031<small>100ポート<br>投資型ファンド解禁</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode hot">2035<small>1,000ポート<br>関わる人100万人</small></div>
+    <span class="farrow">→</span>
+    <div class="fnode hot">2040<small>地球へ<br>再生10万ha・海外10カ国</small></div>
+  </div>
+  <p class="sub" style="margin-top:5vh">担い手30万人の時代に、<strong>関わる人1,000万人</strong>の農業をつくる。</p>
+</section>
+
+<!-- 12. Team -->
+<section class="slide">
+  <span class="kicker">TEAM — なぜ、私たちか</span>
+  <h1><span class="accent">空 × 土地 × デジタル</span>。</h1>
+  <div class="chip-row">
+    <div class="chip"><h3>✈️ 空 — JAL</h3><p>航空オペレーションと地方路線網、交流人口の知見。<strong>ドローン運航管理と「ポートに人と物を運ぶ」動脈</strong>を設計する。</p></div>
+    <div class="chip"><h3>🏠 土地・建築 — 大和ハウス工業</h3><p>遊休地開発・施設建築・農業施設の自動化。<strong>「ポートを国土に建てる」物理実装</strong>を担う視点。</p></div>
+    <div class="chip"><h3>💻 デジタル — 富士通</h3><p>社会インフラSIと農業ICT・AI。<strong>艦隊とデータをまとめて動かす仕組み</strong>を組む視点。</p></div>
+  </div>
+  <p class="sub" style="margin-top:4vh">ポートは、空・土地・データが交差する社会インフラ。<strong>その3つの産業の現場から集まった3人</strong>で、この構想をつくりました。</p>
+</section>
+
+<!-- 13. Closing -->
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/lunar-farm-2040.webp')">
+  <span class="kicker">VISION 2040</span>
+  <p class="quote">「地球で無人農業を解けない種は、<br>火星でも耕せない。」</p>
+  <div class="qr-box">
+    <img src="docs/qr-app-demo.png" alt="アプリDEMOのQRコード">
+    <div class="url">agri-port.pages.dev<small>いま、あなたのスマホでポートを観察できます — Agri Port(アプリDE農業)</small></div>
+  </div>
+</section>
+
+<div class="hud"><span id="pos">1 / 9</span><div class="dots" id="dots"></div><span>← → で操作</span></div>
+
+<script src="assets/scenes.js"></script>
+<script>
+  const slides = [...document.querySelectorAll(".slide")];
+  const dots = document.getElementById("dots");
+  slides.forEach(() => dots.appendChild(document.createElement("span")));
+  let i = Math.min(slides.length - 1, Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1));
+  /* count-up numbers when their slide appears */
+  function runCounters(slide) {
+    slide.querySelectorAll(".cnt").forEach((el) => {
+      const target = parseFloat(el.dataset.target), dec = +(el.dataset.dec || 0);
+      const dur = 1300, t0 = performance.now();
+      cancelAnimationFrame(el._raf);
+      (function step(now) {
+        const p = Math.min(1, (now - t0) / dur);
+        const e = 1 - Math.pow(1 - p, 3); /* easeOutCubic */
+        el.textContent = (target * e).toFixed(dec);
+        if (p < 1) el._raf = requestAnimationFrame(step);
+      })(t0);
+    });
+  }
+  function show(n) {
+    i = Math.min(slides.length - 1, Math.max(0, n));
+    slides.forEach((s, k) => s.classList.toggle("on", k === i));
+    [...dots.children].forEach((d, k) => d.classList.toggle("on", k === i));
+    document.getElementById("pos").textContent = (i + 1) + " / " + slides.length;
+    history.replaceState(null, "", "#" + (i + 1));
+    setTimeout(() => runCounters(slides[i]), 350); /* 数字はカードの立ち上がりに続けて回す */
+  }
+  addEventListener("keydown", (e) => {
+    if (["ArrowRight", " ", "PageDown", "Enter"].includes(e.key)) { e.preventDefault(); show(i + 1); }
+    if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); show(i - 1); }
+    if (e.key === "Home") show(0);
+    if (e.key === "End") show(slides.length - 1);
+  });
+  addEventListener("click", (e) => show(e.clientX > innerWidth / 2 ? i + 1 : i - 1));
+  show(i);
+</script>
+</body>
+</html>
