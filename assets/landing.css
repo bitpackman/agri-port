@@ -383,6 +383,17 @@
   letter-spacing: 0.08em; color: var(--amber-deep);
 }
 .beyond-head + .revenue-row { margin-top: 14px; }
+.beyond-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px; margin-top: 14px;
+}
+.beyond-card { padding: 12px 12px 16px; }
+.beyond-card img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  border-radius: 11px; margin-bottom: 10px; display: block;
+}
+.beyond-card strong { display: block; font-size: 13.5px; margin: 0 6px 4px; }
+.beyond-card p { font-size: 12px; color: var(--ink-2); line-height: 1.8; margin: 0 6px; }
 
 /* ---------- CTA band ---------- */
 .cta-band {
