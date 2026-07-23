@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agri Port — ピッチ資料(体験版)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --green-950: #0d2a1f; --green-800: #174d38; --green-600: #277a59;
+    --amber: #e8a13d; --amber-l: #ffc46b; --cream: #f9f8f2;
+    --ink-inv: rgba(255,255,255,0.88);
+  }
+  html, body { height: 100%; overflow: hidden; background: var(--green-950); }
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Noto Sans JP", system-ui, sans-serif;
+    color: #fff; cursor: default; -webkit-font-smoothing: antialiased;
+  }
+  .slide {
+    position: absolute; inset: 0; display: none;
+    flex-direction: column; justify-content: center;
+    padding: 6vh 7vw; overflow: hidden;
+    background: linear-gradient(160deg, #0d2a1f 0%, #123a2b 60%, #174d38 100%);
+  }
+  .slide.on { display: flex; animation: fadein 0.35s ease; }
+  @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
+  .kicker {
+    display: inline-block; align-self: flex-start;
+    font-size: clamp(12px, 1.3vw, 17px); font-weight: 800; letter-spacing: 0.14em;
+    color: var(--amber-l); border: 1px solid rgba(232,161,61,0.5);
+    background: rgba(232,161,61,0.12);
+    padding: 0.4em 1.1em; border-radius: 999px; margin-bottom: 3vh;
+  }
+  h1 { font-size: clamp(34px, 5.2vw, 78px); line-height: 1.35; font-weight: 800; letter-spacing: 0.01em; }
+  h1 .accent { color: var(--amber-l); }
+  .sub { font-size: clamp(15px, 1.7vw, 24px); color: var(--ink-inv); margin-top: 2.5vh; line-height: 2; max-width: 62vw; }
+  .sub strong { color: var(--amber-l); }
+
+  .bignum-row { display: flex; gap: 5vw; margin-top: 5vh; flex-wrap: wrap; }
+  .bignum .bn-v { font-size: clamp(44px, 6.5vw, 100px); font-weight: 800; color: var(--amber-l); line-height: 1.1; }
+  .bignum .bn-v small { font-size: 0.4em; color: var(--ink-inv); font-weight: 700; }
+  .bignum .bn-l { font-size: clamp(13px, 1.35vw, 19px); color: rgba(255,255,255,0.7); margin-top: 1vh; line-height: 1.7; }
+
+  .img-row { display: flex; gap: 2vw; margin-top: 4.5vh; align-items: stretch; }
+  .img-card { flex: 1; border-radius: 18px; overflow: hidden; position: relative; box-shadow: 0 18px 50px rgba(0,0,0,0.45); }
+  .img-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .img-card .cap {
+    position: absolute; left: 12px; bottom: 12px;
+    font-size: clamp(11px, 1.15vw, 15px); font-weight: 700; color: #fff;
+    background: rgba(10,24,18,0.75); padding: 0.4em 1em; border-radius: 999px;
+  }
+  .step-tag {
+    position: absolute; top: 12px; left: 12px;
+    font-size: clamp(11px, 1.1vw, 14px); font-weight: 800; letter-spacing: 0.08em;
+    background: var(--amber); color: #1a1206; padding: 0.35em 0.9em; border-radius: 999px;
+  }
+
+  .bg-slide { background-size: cover; background-position: center; }
+  .bg-slide::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(13,42,31,0.92) 0%, rgba(13,42,31,0.55) 55%, rgba(13,42,31,0.25) 100%); }
+  .bg-slide > * { position: relative; z-index: 1; }
+
+  .flow-line { display: flex; align-items: center; gap: 1.2vw; margin-top: 3.5vh; flex-wrap: wrap; }
+  .fnode {
+    background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.25);
+    border-radius: 14px; padding: 1.2vh 1.6vw; text-align: center;
+    font-size: clamp(13px, 1.5vw, 21px); font-weight: 700; line-height: 1.5;
+  }
+  .fnode small { display: block; font-size: 0.62em; font-weight: 500; color: rgba(255,255,255,0.6); }
+  .fnode.hot { border-color: var(--amber); background: rgba(232,161,61,0.16); }
+  .bg-slide .fnode { background: rgba(8,18,14,0.66); }
+  .bg-slide .fnode.hot { background: rgba(52,38,10,0.72); }
+  .farrow { font-size: clamp(16px, 2vw, 28px); color: var(--amber-l); font-weight: 800; }
+
+  .chip-row { display: flex; gap: 1.6vw; margin-top: 4vh; flex-wrap: wrap; }
+  .chip {
+    flex: 1; min-width: 220px;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 18px; padding: 3vh 1.8vw;
+  }
+  .chip h3 { font-size: clamp(16px, 1.9vw, 26px); color: var(--amber-l); margin-bottom: 1.2vh; line-height: 1.5; }
+  .chip p { font-size: clamp(13px, 1.35vw, 18px); color: var(--ink-inv); line-height: 1.9; }
+  .chip p strong { color: #fff; }
+
+  .src { position: absolute; bottom: 3.2vh; left: 7vw; right: 7vw; font-size: clamp(10px, 1vw, 13px); color: rgba(255,255,255,0.38); }
+
+  .quote { font-size: clamp(28px, 3.8vw, 58px); font-weight: 800; color: var(--amber-l); line-height: 1.6; max-width: 78vw; }
+  .qr-box { display: flex; align-items: center; gap: 3vw; margin-top: 5vh; }
+  .qr-box img { width: clamp(120px, 14vw, 200px); border-radius: 14px; }
+  .qr-box .url { font-size: clamp(20px, 2.6vw, 40px); font-weight: 800; }
+  .qr-box .url small { display: block; font-size: 0.45em; font-weight: 600; color: rgba(255,255,255,0.6); margin-top: 0.6em; }
+
+  /* ---- motion: staggered reveals ---- */
+  @keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  .slide.on .kicker { animation: rise 0.5s ease both; }
+  .slide.on h1 { animation: rise 0.6s ease 0.12s both; }
+  .slide.on .sub { animation: rise 0.6s ease 0.3s both; }
+  .slide.on .quote { animation: rise 0.7s ease 0.15s both; }
+  .slide.on .qr-box { animation: rise 0.6s ease 0.5s both; }
+  .slide.on .bignum:nth-child(1) { animation: rise 0.55s ease 0.45s both; }
+  .slide.on .bignum:nth-child(2) { animation: rise 0.55s ease 0.65s both; }
+  .slide.on .bignum:nth-child(3) { animation: rise 0.55s ease 0.85s both; }
+  .slide.on .chip:nth-child(1) { animation: rise 0.55s ease 0.4s both; }
+  .slide.on .chip:nth-child(2) { animation: rise 0.55s ease 0.58s both; }
+  .slide.on .chip:nth-child(3) { animation: rise 0.55s ease 0.76s both; }
+  .slide.on .chip:nth-child(4) { animation: rise 0.55s ease 0.94s both; }
+  .slide.on .img-card:nth-child(1) { animation: rise 0.55s ease 0.35s both; }
+  .slide.on .img-card:nth-child(2) { animation: rise 0.55s ease 0.53s both; }
+  .slide.on .img-card:nth-child(3) { animation: rise 0.55s ease 0.71s both; }
+  .slide.on .img-card:nth-child(4) { animation: rise 0.55s ease 0.89s both; }
+  .slide.on .flow-line > *:nth-child(1) { animation: rise 0.4s ease 0.35s both; }
+  .slide.on .flow-line > *:nth-child(2) { animation: rise 0.4s ease 0.5s both; }
+  .slide.on .flow-line > *:nth-child(3) { animation: rise 0.4s ease 0.65s both; }
+  .slide.on .flow-line > *:nth-child(4) { animation: rise 0.4s ease 0.8s both; }
+  .slide.on .flow-line > *:nth-child(5) { animation: rise 0.4s ease 0.95s both; }
+  .slide.on .flow-line > *:nth-child(6) { animation: rise 0.4s ease 1.1s both; }
+  .slide.on .flow-line > *:nth-child(7) { animation: rise 0.4s ease 1.25s both; }
+  .slide.on .flow-line > *:nth-child(8) { animation: rise 0.4s ease 1.4s both; }
+  .slide.on .flow-line > *:nth-child(9) { animation: rise 0.4s ease 1.55s both; }
+  @keyframes arrowPulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+  .slide.on .farrow { animation: rise 0.4s ease both, arrowPulse 1.6s ease-in-out 2s infinite; }
+  .slide.on .flow-line > .farrow:nth-child(2) { animation: rise 0.4s ease 0.5s both, arrowPulse 1.6s ease-in-out 2s infinite; }
+  .slide.on .flow-line > .farrow:nth-child(4) { animation: rise 0.4s ease 0.8s both, arrowPulse 1.6s ease-in-out 2.25s infinite; }
+  .slide.on .flow-line > .farrow:nth-child(6) { animation: rise 0.4s ease 1.1s both, arrowPulse 1.6s ease-in-out 2.5s infinite; }
+  .slide.on .flow-line > .farrow:nth-child(8) { animation: rise 0.4s ease 1.4s both, arrowPulse 1.6s ease-in-out 2.75s infinite; }
+
+
+  /* ---- AS-IS / TO-BE scheme diagram ---- */
+  .scheme-rows { display: flex; flex-direction: column; gap: 2.2vh; margin-top: 3vh; }
+  .scheme-row {
+    display: flex; align-items: center; gap: 0.9vw;
+    padding: 1.6vh 1.4vw; border-radius: 16px;
+  }
+  .scheme-row.asis { background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.14); }
+  .scheme-row.tobe { background: rgba(232,161,61,0.10); border: 1.5px solid rgba(232,161,61,0.55); }
+  .sr-label { flex: 0 0 7.5vw; font-size: clamp(12px,1.25vw,17px); font-weight: 800; line-height: 1.5; }
+  .scheme-row.asis .sr-label { color: rgba(255,255,255,0.55); }
+  .scheme-row.tobe .sr-label { color: var(--amber-l); }
+  .sr-label small { display: block; font-size: 0.72em; font-weight: 600; opacity: 0.75; }
+  .snode {
+    flex: 1; text-align: center; border-radius: 12px;
+    padding: 1vh 0.4vw; line-height: 1.45;
+    font-size: clamp(11.5px,1.18vw,16px); font-weight: 700;
+    background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.2);
+  }
+  .snode small { display: block; font-size: 0.72em; font-weight: 500; color: rgba(255,255,255,0.6); }
+  .scheme-row.asis .snode.dim { opacity: 0.75; }
+  .scheme-row.tobe .snode.hot { background: rgba(232,161,61,0.2); border-color: var(--amber); }
+  .snode.gone {
+    background: transparent; border: 1px dashed rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.4); text-decoration: line-through;
+  }
+  .snode.gone small { text-decoration: none; }
+  .sarrow { flex: 0 0 auto; font-size: clamp(11px,1.05vw,15px); font-weight: 700; color: rgba(255,255,255,0.55); text-align: center; line-height: 1.4; }
+  .sarrow b { display: block; color: var(--amber-l); font-size: 0.85em; }
+  .scheme-note { margin-top: 1.6vh; font-size: clamp(12px,1.25vw,17px); color: var(--ink-inv); line-height: 1.9; }
+  .scheme-note strong { color: var(--amber-l); }
+  .slide.on .scheme-row.asis { animation: rise 0.55s ease 0.35s both; }
+  .slide.on .scheme-row.tobe { animation: rise 0.55s ease 0.9s both; }
+  .slide.on .scheme-note { animation: rise 0.5s ease 1.4s both; }
+
+  .power-line {
+    margin-top: 5vh; font-size: clamp(19px, 2.4vw, 36px); font-weight: 800;
+    line-height: 1.8; color: var(--amber-l);
+  }
+  .slide.on .power-line { animation: rise 0.7s ease 1.15s both; }
+
+  /* ---- decline curve (S3) ---- */
+  .decline { position: absolute; right: 6vw; top: 25vh; width: 21vw; opacity: 0.85; pointer-events: none; }
+  .decline .dl { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .slide.on .decline .dl { animation: draw 1.6s ease 0.5s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .decline .dlend, .decline text { opacity: 0; }
+  .slide.on .decline text:nth-of-type(1) { animation: rise 0.4s ease 0.7s both; }
+  .slide.on .decline text:nth-of-type(2) { animation: rise 0.4s ease 1.4s both; }
+  .slide.on .decline .dlend { animation: rise 0.4s ease 2.1s both; }
+  .slide.on .decline text:nth-of-type(3) { animation: rise 0.4s ease 2.1s both; }
+
+  /* ---- live demo panels (S6) ---- */
+  .cam-panel { flex: 1; position: relative; border-radius: 18px; overflow: hidden; box-shadow: 0 18px 50px rgba(0,0,0,0.5); background: #0d1a14; aspect-ratio: 960 / 430; }
+  .cam-panel svg { width: 100%; height: 100%; display: block; }
+  .cam-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .cam-cap {
+    position: absolute; left: 12px; bottom: 12px; z-index: 2;
+    font-size: clamp(11px, 1.15vw, 15px); font-weight: 700; color: #fff;
+    background: rgba(10,24,18,0.78); padding: 0.4em 1em; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #ff5548; animation: blink 1.4s ease-in-out infinite; }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+  .sway { transform-box: fill-box; transform-origin: 50% 100%; animation: sway 3.8s ease-in-out infinite alternate; }
+  @keyframes sway { from { transform: rotate(-2.2deg); } to { transform: rotate(2.6deg); } }
+  .bob { animation: bobk 5.5s ease-in-out infinite; }
+  @keyframes bobk { 0%,100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+  @media (prefers-reduced-motion: reduce) { .slide.on *, .sway, .bob, .live-dot { animation-duration: 0.01s !important; animation-iteration-count: 1 !important; } }
+
+  .hud {
+    position: fixed; bottom: 2.2vh; right: 2.4vw; z-index: 10;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 13px; color: rgba(255,255,255,0.5); font-variant-numeric: tabular-nums;
+  }
+  .dots { display: flex; gap: 6px; }
+  .dots span { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.22); }
+  .dots span.on { background: var(--amber); }
+  .brandmark { position: fixed; top: 2.6vh; right: 2.4vw; z-index: 10; display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 14px; color: rgba(255,255,255,0.75); }
+  .brandmark svg { width: 24px; height: 24px; }
+</style>
+</head>
+<body>
+
+<div class="brandmark">
+  <svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#e8a13d"/><path d="M14 21V11" stroke="#174d38" stroke-width="2" stroke-linecap="round"/><path d="M14 12c0-4 3-6 7-6 0 4-3 6-7 6zM14 15c0-3-2.5-5-6-5 0 3.5 2.5 5 6 5z" fill="#174d38"/></svg>
+  Agri Port
+</div>
+
+<!-- 1. Title -->
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/hero-2035-autonomous-agri-port.webp')">
+  <span class="kicker">🚜 PHYSICAL AI × EXPERIENCE</span>
+  <h1>私たちは、野菜を売りません。<br><span class="accent">買えなかった体験</span>を売ります。</h1>
+  <p class="sub"><strong>Agri Port — アプリDE農業。</strong>フィジカルAIを通じて、誰も買えなかった「農業への参加」を商品にする。</p>
+</section>
+
+<!-- 2. Hook -->
+<section class="slide">
+  <span class="kicker">HOOK — 経験の希少性</span>
+  <h1>最後に、土に触れたのは<br><span class="accent">いつですか?</span></h1>
+  <p class="sub">都市に住む私たちは、食の生産から完全に切り離されました。田植えも、収穫も、一生しないまま終わる人が大半です。<br>そして人は、<strong>経験できないものにこそ、希少性を感じます</strong> — モノからコトへ、消費はもう動いています。</p>
+  <div class="bignum-row">
+    <div class="bignum"><div class="bn-v"><span class="cnt" data-target="91.7" data-dec="1">0</span><small>%</small></div><div class="bn-l">日本の都市部人口比率 —<br>ほとんどの人に「畑」はもうない</div></div>
+    <div class="bignum"><div class="bn-v">コト<small>消費へ</small></div><div class="bn-l">体験ギフト・推し活・聖地巡礼 —<br>財布は「経験」に開いている</div></div>
+  </div>
+  <div class="src">出典: World Bank(都市人口比率・2023)</div>
+</section>
+
+<!-- 3. Supply vanishing -->
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/persona-farmer-dawn.webp')">
+  <span class="kicker">PROBLEM — その体験の、作り手が消えていく</span>
+  <h1>農業は「誰もが<span class="accent">経験できない</span>もの」<br>になっていく。</h1>
+  <p class="sub">耕す人は25年で57%減り、平均67.6歳。20年後は30万人 — 体験の供給者そのものが消えていきます。<br>放置すれば失うのは体験だけではありません。<strong>手取り48.5%・価格決定権なし・豊作は畑に廃棄</strong> — 食の土台ごと崩れていく。</p>
+  <div class="src">出典: 2025年農林業センサス(概数値)/ 食品流通段階別価格形成調査(農林水産省)</div>
+</section>
+
+<!-- 4. Breakthrough -->
+<section class="slide">
+  <span class="kicker">BREAKTHROUGH — フィジカルAIの活路</span>
+  <h1>フィジカルAIは、<br>労働と土地を<span class="accent">切り離す</span>。</h1>
+  <p class="sub">ロボットが「現地に住む身体」の代わりになる — 収穫ロボは従量課金で、ヒューマノイドは自動車工場で、もう働いています。<br>ここで私たちは気づきました。<strong>労働を切り離せるなら、「体験」だけを取り出して、世界中に配れる</strong>のではないか。</p>
+  <p class="power-line">労働は、切り離す。<br>判断と体験は、あなたに返す。</p>
+</section>
+
+<!-- 5. 参加の3層 -->
+<section class="slide">
+  <span class="kicker">SOLUTION — 「参加」の中身を3層で設計する</span>
+  <h1>観る・決める・<span class="accent">操る</span>。</h1>
+  <div class="chip-row">
+    <div class="chip"><h3>👀 観る — 毎日の接点</h3><p>自分の区画をライブ観察。AIが雑草を検出し、除去する瞬間まで見える。<strong>飽きさせるのは映像ではなく、季節のドラマ</strong> — 発芽・台風・出穂・収穫が本物の物語として進む。</p></div>
+    <div class="chip"><h3>🧠 決める — あなたは監督になる</h3><p>「台風接近。早期収穫か、粘って糖度を取るか」— AIが選択肢とトレードオフを提示し、<strong>あなたの区画はあなたが決める</strong>。結果は収穫の味で返ってくる。</p></div>
+    <div class="chip"><h3>🕹 操る — 希少体験のプレミアム</h3><p>フィジカルAIの身体を5分借りて、<strong>東京の自宅から新潟の棚田を耕す</strong>。操作ログは艦隊の教師データに還流 — 遊びがAIを賢くする。</p></div>
+  </div>
+  <p class="sub" style="margin-top:3vh">お金を出して終わりのクラファンとは違う。<strong>シーズン中ずっと、判断と体験で関わり続ける</strong> — これが私たちの「農業への参加」です。</p>
+</section>
+
+<!-- 6. Live demo -->
+<section class="slide">
+  <span class="kicker">LIVE DEMO — いま触れます: agri-port.pages.dev</span>
+  <h1>「観る」は、もう<span class="accent">動いています</span>。</h1>
+  <div class="img-row">
+    <div class="cam-panel">
+      <svg id="camPov" viewBox="0 0 960 430" role="img" aria-label="ロボット視点のAI雑草検出(ライブアニメーション)"></svg>
+      <video class="cam-video" src="assets/videos/video-pov-weeding.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
+      <span class="cam-cap"><span class="live-dot"></span>🤖 ロボット視点 — 雑草をAI検出、農薬ゼロで除去</span>
+    </div>
+    <div class="cam-panel">
+      <svg id="camNdvi" viewBox="0 0 960 430" role="img" aria-label="ドローンNDVI(ライブアニメーション)"></svg>
+      <video class="cam-video" src="assets/videos/video-drone-scan.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
+      <span class="cam-cap"><span class="live-dot"></span>🚁 ドローンNDVI — 生育ムラ検出→追肥を自動予約</span>
+    </div>
+    <div class="cam-panel">
+      <video class="cam-video" src="assets/videos/video-humanoid-packhouse.mp4" poster="assets/images/optimized/section-2035-humanoid-packhouse-logistics.webp" autoplay muted loop playsinline aria-label="ヒューマノイドの選果(生成動画)"></video>
+      <span class="cam-cap"><span class="live-dot"></span>🦿 ヒューマノイド — 選果・箱詰めから配送へ</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. 決める demo -->
+<section class="slide">
+  <span class="kicker">INTERACTIVE — 「決める」のデモ</span>
+  <h1 style="font-size:clamp(26px,3.8vw,56px)">台風6号、接近中。<br><span class="accent">あなたの区画</span>は、どうしますか?</h1>
+  <div class="chip-row" style="margin-top:3vh">
+    <div class="chip" style="border-color:var(--amber); background:rgba(232,161,61,0.13)"><h3>A. 今週末に早期収穫する</h3><p>糖度は約10%落ちるが、収量は確保。AIの試算: 損失リスク5%。<strong>手堅い監督の選択。</strong></p></div>
+    <div class="chip"><h3>B. 粘って、完熟を待つ</h3><p>台風が逸れれば過去最高の糖度。直撃なら3割落果。AIの試算: 損失リスク35%。<strong>攻める監督の選択。</strong></p></div>
+  </div>
+  <p class="sub" style="margin-top:3vh">AIアグロノミストが選択肢とリスクを出し、<strong>決めるのはオーナーであるあなた</strong>。隣の区画と味が違うのは、判断が違ったから — 収穫の物語は、あなたの采配の記録になります。</p>
+</section>
+
+<!-- 8. 操る -->
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/beyond-teleop-handoff.webp')">
+  <span class="kicker">RARE EXPERIENCE — 「操る」= 買えなかった体験</span>
+  <h1>東京のリビングから、<br>新潟の棚田を<span class="accent">耕す</span>。</h1>
+  <p class="sub">世界の誰もまだ買えない体験を、最初に売ります。今日は北海道のトマト、来週はケニアのバナナ — <strong>フィジカルAIの身体を5分借りる</strong>。<br>操作ログは模倣学習の教師データになり、<strong>遊んだ分だけ、艦隊が賢くなる</strong>。</p>
+</section>
+
+<!-- 9. 希少性の階段 -->
+<section class="slide">
+  <span class="kicker">THE LADDER — 体験の希少性は、高度とともに上がる</span>
+  <h1>体験の値段は、<br><span class="accent">そこに行けない距離</span>で決まる。</h1>
+  <div class="img-row" style="height:34vh; margin-top:3vh">
+    <div class="img-card"><img src="assets/images/optimized/port-uonuma-terrace-rice.webp" alt="棚田"><span class="cap">STEP 1 棚田の田植え</span></div>
+    <div class="img-card"><img src="assets/images/optimized/laser-weeding-night.webp" alt="夜のレーザー除草"><span class="cap">STEP 2 夜のレーザー除草を操縦</span></div>
+    <div class="img-card"><img src="assets/images/optimized/desert-port-greenhouse.webp" alt="砂漠の温室"><span class="cap">STEP 3 砂漠ポートの水管理</span></div>
+    <div class="img-card"><img src="assets/images/optimized/lunar-farm-2040.webp" alt="月面農場"><span class="cap">STEP 4 月面農場の、最初の水やり</span></div>
+  </div>
+  <p class="sub" style="margin-top:3vh">無人島、砂漠、そして宇宙 — <strong>人が住めない場所ほど、フィジカルAIしか行けない場所ほど、体験は希少になる</strong>。Agri Portはその体験の唯一の入口になります。</p>
+</section>
+
+<!-- 10. Business -->
+<section class="slide">
+  <span class="kicker">BUSINESS — エンタメの財布で、社会課題を解く</span>
+  <h1>遊んだ分だけ、<br><span class="accent">国土が再稼働</span>する。</h1>
+  <div class="bignum-row" style="margin-top:3vh">
+    <div class="bignum"><div class="bn-v">3<small>層の財布</small></div><div class="bn-l">オーナー権(1口1万円)+体験課金(操縦枠)+産直リターン<br><strong>体験の購入が、そのまま農地の運営費になる</strong></div></div>
+    <div class="bignum"><div class="bn-v"><span class="cnt" data-target="78.5" data-dec="1">0</span><small>%</small></div><div class="bn-l">生産者の手取り(市場流通は48.5%)<br>中抜きの30ptが地代・分配・ロボ運用費に</div></div>
+    <div class="bignum"><div class="bn-v">廃棄<small>ゼロ設計</small></div><div class="bn-l">出資=前払購入 — 作付け前に完売<br>豊作は暴落ではなく上振れに</div></div>
+  </div>
+  <p class="sub" style="margin-top:3.5vh">クラファンとの違いは構造です — 財布だけの参加ではなく、<strong>判断と体験で関わり続ける参加</strong>。そのお金が、担い手30万人時代の農地を回す燃料になる。</p>
+  <div class="src">出典: 農水省 令和4年度 食品流通段階別価格形成調査</div>
+</section>
+
+<!-- 11. Impact -->
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/persona-farmer-future.webp')">
+  <span class="kicker">IMPACT — 体験の向こう側</span>
+  <h1>あなたが遊んだ谷に、<br><span class="accent">人と実り</span>が戻る。</h1>
+  <p class="sub">72歳の田中さんの田はポートになり、地代が入る。あなたの操縦した除草ロボが守った新米が、秋にあなたの家に届く。<br><strong>お金は都市から地方へ。労働はロボットへ。体験と野菜と風景は、あなたへ。</strong></p>
+</section>
+
+<!-- 12. Planetary -->
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/planetary-earth-network.webp')">
+  <span class="kicker">PLANETARY — 体験の供給地は、地球全部</span>
+  <h1>世界の眠る土地・約1億haが、<br><span class="accent">体験の舞台</span>を待っている。</h1>
+  <p class="sub">高齢化はEU・韓国・中国が日本を追い、世界の耕作放棄地は約1億ha。日本で磨いたこの仕組みは、そのまま世界に渡せます。<br><strong>遊び場が増えるほど、食で満たされる土地が増える</strong> — 飢餓6.7億人への、エンタメからの回答です。</p>
+  <div class="src">出典: Zheng et al., Nature Communications(2023)/ FAO SOFI 2025 / Eurostat / 韓国統計庁</div>
+</section>
+
+<!-- 13. Team -->
+<section class="slide">
+  <span class="kicker">TEAM — なぜ、私たちか</span>
+  <h1><span class="accent">空 × 土地 × デジタル</span>。</h1>
+  <div class="chip-row">
+    <div class="chip"><h3>✈️ 空 — JAL</h3><p>航空オペレーションと地方路線網、交流人口の知見。<strong>ドローン運航管理と「ポートに人と物を運ぶ」動脈</strong>を設計する。</p></div>
+    <div class="chip"><h3>🏠 土地・建築 — 大和ハウス工業</h3><p>遊休地開発・施設建築・農業施設の自動化。<strong>「ポートを国土に建てる」物理実装</strong>を担う視点。</p></div>
+    <div class="chip"><h3>💻 デジタル — 富士通</h3><p>社会インフラSIと農業ICT・AI。<strong>艦隊とデータをまとめて動かす仕組み</strong>を組む視点。</p></div>
+  </div>
+  <p class="sub" style="margin-top:4vh">体験を運び、舞台を建て、艦隊を動かす — <strong>3つの産業の現場から集まった3人</strong>で、この構想をつくりました。</p>
+</section>
+
+<!-- 14. Closing -->
+<section class="slide bg-slide" style="background-image:url('assets/images/optimized/lunar-farm-2040.webp')">
+  <span class="kicker">VISION 2040</span>
+  <p class="quote">月面農場の「最初の水やり権」を<br>売る日まで、農業を遊び倒す。</p>
+  <div class="qr-box">
+    <img src="docs/qr-app-demo.png" alt="アプリDEMOのQRコード">
+    <div class="url">agri-port.pages.dev<small>いま、あなたのスマホでポートを観察できます — Agri Port(アプリDE農業)</small></div>
+  </div>
+</section>
+
+<div class="hud"><span id="pos">1 / 9</span><div class="dots" id="dots"></div><span>← → で操作</span></div>
+
+<script src="assets/scenes.js"></script>
+<script>
+  const slides = [...document.querySelectorAll(".slide")];
+  const dots = document.getElementById("dots");
+  slides.forEach(() => dots.appendChild(document.createElement("span")));
+  let i = Math.min(slides.length - 1, Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1));
+  /* count-up numbers when their slide appears */
+  function runCounters(slide) {
+    slide.querySelectorAll(".cnt").forEach((el) => {
+      const target = parseFloat(el.dataset.target), dec = +(el.dataset.dec || 0);
+      const dur = 1300, t0 = performance.now();
+      cancelAnimationFrame(el._raf);
+      (function step(now) {
+        const p = Math.min(1, (now - t0) / dur);
+        const e = 1 - Math.pow(1 - p, 3); /* easeOutCubic */
+        el.textContent = (target * e).toFixed(dec);
+        if (p < 1) el._raf = requestAnimationFrame(step);
+      })(t0);
+    });
+  }
+  function show(n) {
+    i = Math.min(slides.length - 1, Math.max(0, n));
+    slides.forEach((s, k) => s.classList.toggle("on", k === i));
+    [...dots.children].forEach((d, k) => d.classList.toggle("on", k === i));
+    document.getElementById("pos").textContent = (i + 1) + " / " + slides.length;
+    history.replaceState(null, "", "#" + (i + 1));
+    setTimeout(() => runCounters(slides[i]), 350); /* 数字はカードの立ち上がりに続けて回す */
+  }
+  addEventListener("keydown", (e) => {
+    if (["ArrowRight", " ", "PageDown", "Enter"].includes(e.key)) { e.preventDefault(); show(i + 1); }
+    if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); show(i - 1); }
+    if (e.key === "Home") show(0);
+    if (e.key === "End") show(slides.length - 1);
+  });
+  addEventListener("click", (e) => show(e.clientX > innerWidth / 2 ? i + 1 : i - 1));
+  show(i);
+</script>
+</body>
+</html>
