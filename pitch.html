@@ -125,6 +125,41 @@
   .slide.on .flow-line > .farrow:nth-child(6) { animation: rise 0.4s ease 1.1s both, arrowPulse 1.6s ease-in-out 2.5s infinite; }
   .slide.on .flow-line > .farrow:nth-child(8) { animation: rise 0.4s ease 1.4s both, arrowPulse 1.6s ease-in-out 2.75s infinite; }
 
+
+  /* ---- AS-IS / TO-BE scheme diagram ---- */
+  .scheme-rows { display: flex; flex-direction: column; gap: 2.2vh; margin-top: 3vh; }
+  .scheme-row {
+    display: flex; align-items: center; gap: 0.9vw;
+    padding: 1.6vh 1.4vw; border-radius: 16px;
+  }
+  .scheme-row.asis { background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.14); }
+  .scheme-row.tobe { background: rgba(232,161,61,0.10); border: 1.5px solid rgba(232,161,61,0.55); }
+  .sr-label { flex: 0 0 7.5vw; font-size: clamp(12px,1.25vw,17px); font-weight: 800; line-height: 1.5; }
+  .scheme-row.asis .sr-label { color: rgba(255,255,255,0.55); }
+  .scheme-row.tobe .sr-label { color: var(--amber-l); }
+  .sr-label small { display: block; font-size: 0.72em; font-weight: 600; opacity: 0.75; }
+  .snode {
+    flex: 1; text-align: center; border-radius: 12px;
+    padding: 1vh 0.4vw; line-height: 1.45;
+    font-size: clamp(11.5px,1.18vw,16px); font-weight: 700;
+    background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.2);
+  }
+  .snode small { display: block; font-size: 0.72em; font-weight: 500; color: rgba(255,255,255,0.6); }
+  .scheme-row.asis .snode.dim { opacity: 0.75; }
+  .scheme-row.tobe .snode.hot { background: rgba(232,161,61,0.2); border-color: var(--amber); }
+  .snode.gone {
+    background: transparent; border: 1px dashed rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.4); text-decoration: line-through;
+  }
+  .snode.gone small { text-decoration: none; }
+  .sarrow { flex: 0 0 auto; font-size: clamp(11px,1.05vw,15px); font-weight: 700; color: rgba(255,255,255,0.55); text-align: center; line-height: 1.4; }
+  .sarrow b { display: block; color: var(--amber-l); font-size: 0.85em; }
+  .scheme-note { margin-top: 1.6vh; font-size: clamp(12px,1.25vw,17px); color: var(--ink-inv); line-height: 1.9; }
+  .scheme-note strong { color: var(--amber-l); }
+  .slide.on .scheme-row.asis { animation: rise 0.55s ease 0.35s both; }
+  .slide.on .scheme-row.tobe { animation: rise 0.55s ease 0.9s both; }
+  .slide.on .scheme-note { animation: rise 0.5s ease 1.4s both; }
+
   .power-line {
     margin-top: 5vh; font-size: clamp(19px, 2.4vw, 36px); font-weight: 800;
     line-height: 1.8; color: var(--amber-l);
@@ -291,6 +326,43 @@
   </div>
   <p class="power-line" style="margin-top:4vh">お金は都市から地方へ。労働はロボットへ。<br>野菜とデータと風景は、参加者へ。</p>
   <div class="src">出典: 農水省 令和4年度 食品流通段階別価格形成調査(直販71.8〜78.5%)/ 第二種金融商品取引業協会</div>
+</section>
+
+<!-- Scheme: AS-IS / TO-BE -->
+<section class="slide">
+  <span class="kicker">STRUCTURE — お金と作物の流れを、並べて見る</span>
+  <h1 style="font-size:clamp(26px,3.6vw,54px)">6つの手を渡るお金が、<br><span class="accent">2つ</span>になる。</h1>
+  <div class="scheme-rows">
+    <div class="scheme-row asis">
+      <div class="sr-label">AS-IS<small>市場流通</small></div>
+      <div class="snode dim">農地オーナー<small>耕作者不在で地代ゼロ化</small></div>
+      <div class="sarrow">→<b>委託(価格未定)</b></div>
+      <div class="snode">農家<small>手取り48.5%</small></div>
+      <div class="sarrow">→</div>
+      <div class="snode dim">農協/集出荷<small>▲15.0%</small></div>
+      <div class="sarrow">→</div>
+      <div class="snode dim">卸売市場<small>▲5.2% · せり9.4%</small></div>
+      <div class="sarrow">→</div>
+      <div class="snode dim">仲卸<small>▲11.5%</small></div>
+      <div class="sarrow">→</div>
+      <div class="snode dim">小売<small>▲19.9%</small></div>
+      <div class="sarrow">→</div>
+      <div class="snode">消費者<small>価格に関与できない</small></div>
+    </div>
+    <div class="scheme-row tobe">
+      <div class="sr-label">TO-BE<small>Agri Port</small></div>
+      <div class="snode hot">農地オーナー<small>リースで地代収入</small></div>
+      <div class="sarrow">→<b>利用権(〜50年)</b></div>
+      <div class="snode hot">ポート<small>AI艦隊+農家=パートナー</small></div>
+      <div class="sarrow">←<b>前払購入(作付け前)</b></div>
+      <div class="snode hot">参加者=消費者<small>1口1万円 · 観察しながら待つ</small></div>
+      <div class="snode gone">農協<small>共同購買・指導は連携先に</small></div>
+      <div class="snode gone">卸・仲卸<small>中間流通を通らない</small></div>
+      <div class="snode gone">小売<small>直送48時間</small></div>
+    </div>
+  </div>
+  <p class="scheme-note">AS-ISは6者を経て価格が最後に決まる「委託の連鎖」。TO-BEは<strong>買い手と作り手が直結し、価格が最初に決まる</strong>。消えた中間の約30ptが、地代・分配・ロボ運用費に変わる — 農協と敵対はしない(資材調達・営農指導のパートナー)。</p>
+  <div class="src">出典: 農水省 令和4年度 食品流通段階別価格形成調査(4段階流通の経費内訳) / 卸売市場データ集</div>
 </section>
 
 <!-- 6. Why now -->
